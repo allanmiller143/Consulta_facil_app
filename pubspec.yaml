@@ -36,6 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   get: ^4.1.4
+  table_calendar: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -65,8 +66,23 @@ flutter:
      - assets/imgs/minhasConsultas.png
      - assets/imgs/notificacoes.png
      - assets/imgs/perfil.png
+     - assets/imgs/ortopedista.png
+     - assets/imgs/seringa.png
+     - assets/imgs/oftamologista.png
+     - assets/imgs/dentista.png
+     - assets/imgs/cardiologista.png
+     - assets/imgs/dermatologista.png
+     - assets/imgs/ginecologista.png
+     - assets/imgs/logo.png
 
   fonts:
+      - family: Chewy-Regular
+        fonts:
+          - asset: assets/fonts/Chewy-Regular.ttf
+          
       - family: Nunito-VariableFont_wght
         fonts:
           - asset: assets/fonts/Nunito-VariableFont_wght.ttf
+
+
+      

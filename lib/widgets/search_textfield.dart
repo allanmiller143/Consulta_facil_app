@@ -5,6 +5,8 @@ class MySearchTextFormField extends StatelessWidget {
   final bool enabled;
   final TextInputType keyboardType;
   final bool obscureText;
+  final Color color;
+  final VoidCallback onChanged;
  
 
   const MySearchTextFormField({
@@ -13,6 +15,8 @@ class MySearchTextFormField extends StatelessWidget {
     this.enabled = true,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
+    this.color = const Color.fromARGB(255, 141, 62, 62),
+    required this.onChanged 
   }) : super(key: key);
 
   @override
@@ -21,13 +25,11 @@ class MySearchTextFormField extends StatelessWidget {
         Material(
           elevation: 5,
           borderRadius: BorderRadius.circular(30),
+          
           child: Container(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            height: 45,
             decoration: BoxDecoration(
-              border: Border.all(
-                width: 0.4,
-                color: Colors.black45,
-              ),
+              color: color,
               borderRadius: BorderRadius.circular(30),
             ),
             child: TextFormField(
@@ -35,12 +37,20 @@ class MySearchTextFormField extends StatelessWidget {
               controller: controller,
               enabled: enabled,
               keyboardType: keyboardType,
+              onChanged: (value) => {
+                onChanged()
+              },
               decoration:  const InputDecoration(
+                
+                
+                contentPadding: EdgeInsets.only(top: 10),
+                hintText: 'Pesquisar',
+                hintStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255),fontWeight: FontWeight.w400,fontSize: 16),
                 border: InputBorder.none,
-                suffixIcon: Icon(Icons.search_outlined,)
+                prefixIcon: Icon(Icons.search_outlined,color: Color.fromARGB(255, 255, 255, 255),)
             ),
           )
-                ),
-        );
+        ),
+      );
   }
 }

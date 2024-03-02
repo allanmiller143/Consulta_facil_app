@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 class MySpecialtyCardButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
+
   final String image;
   final String info;
   final RxString selected;
@@ -16,7 +17,8 @@ class MySpecialtyCardButton extends StatelessWidget {
     required this.onPressed,
     required this.image,
     required this.info,
-    required this.selected
+    required this.selected,
+
   }) : super(key: key);
 
   @override
@@ -28,48 +30,61 @@ class MySpecialtyCardButton extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 20),
         child: Obx(() { 
             final isSelected = selected.value == label;
-            return Material(
-            elevation: 4,
-            shadowColor:  Colors.black,
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.width * 0.25,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: AssetImage(image),
-                  fit: BoxFit.cover,
-                ),
-                border: !isSelected?  null:Border.all(color:const  Color.fromARGB(255, 18, 141, 255),width: 1)
-                
-              ),
-              child: 
-                  Container(
-                      padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+            return Column(
+              children: [
+                  Stack(
+                    children:[ Material(
+                    elevation: 8,
+                    shadowColor: const Color.fromARGB(255, 0, 0, 0),
+                    borderRadius: BorderRadius.circular(250),
+                    child: Container(
+                      width:  MediaQuery.of(context).size.width * 0.35,
+                      height: MediaQuery.of(context).size.width * 0.35,
                       decoration: BoxDecoration(
-                        color:const  Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
-                        borderRadius:  BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            label,
-                            style: TextStyle(
-                              fontFamily: 'Nunito-VariableFont_wght',
-                              fontWeight: FontWeight.w600,
-                              fontSize:  isSelected ? 29 : 22,
-                              color:  const Color.fromARGB(255, 255, 255, 255),
-                            ),
-                          ),
-                          IconButton(onPressed: (){showConfirmationDialog(context, label, info);}, icon:const  Icon(Icons.info_outline,color: Color.fromARGB(255, 255, 255, 255),))
-                        ],
+                        borderRadius: BorderRadius.circular(250),
+                        border: Border.all(width: isSelected ? 3 : 2,color: isSelected ?const  Color.fromARGB(255, 0, 0, 0) : const Color.fromARGB(255, 255, 255, 255)),
+                        image: DecorationImage(
+                          image: AssetImage(image),
+                          scale:  isSelected ? 1.2 :1.5
+                    
+                        ),
+                        gradient:const LinearGradient(
+                          colors: [
+                             Color.fromARGB(255, 133, 188, 221),
+                             Color.fromARGB(255, 43, 61, 136),
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter
+                    
+                        )
                       ),
                     ),
-            ),
-          );
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: GestureDetector(
+                      onTap: (){
+                        showConfirmationDialog(context, label, info);
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width *0.09,
+                        height: MediaQuery.of(context).size.width *0.09,
+                        decoration: BoxDecoration(
+                          color: isSelected ? const Color.fromARGB(255, 70, 118, 185) : Color.fromARGB(255, 255, 255, 255),
+                          borderRadius: BorderRadius.circular(120)
+                        ),
+                        child: isSelected ? const Icon(Icons.info_rounded,color: Color.fromARGB(255, 255, 255, 255),) : const Icon(Icons.info_rounded,color: Color.fromARGB(255, 70, 118, 185),),
+                      ),
+                    ),
+                  )
+                    ]
+                  ),
+                const SizedBox(height: 10,),
+                Text(label,style: const    TextStyle(color: Color.fromARGB(255, 255, 255, 255),fontSize: 18,fontFamily: 'Nunito-VariableFont_wght',fontWeight: FontWeight.bold), )
+
+              ],
+            );
           }
 
         ),
