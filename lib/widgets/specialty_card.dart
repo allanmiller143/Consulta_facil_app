@@ -71,7 +71,7 @@ class MySpecialtyCardButton extends StatelessWidget {
                         width: MediaQuery.of(context).size.width *0.09,
                         height: MediaQuery.of(context).size.width *0.09,
                         decoration: BoxDecoration(
-                          color: isSelected ? const Color.fromARGB(255, 70, 118, 185) : Color.fromARGB(255, 255, 255, 255),
+                          color: isSelected ? const Color.fromARGB(255, 70, 118, 185) : const Color.fromARGB(255, 255, 255, 255),
                           borderRadius: BorderRadius.circular(120)
                         ),
                         child: isSelected ? const Icon(Icons.info_rounded,color: Color.fromARGB(255, 255, 255, 255),) : const Icon(Icons.info_rounded,color: Color.fromARGB(255, 70, 118, 185),),

@@ -1,7 +1,7 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, unnecessary_overrides
+import 'package:app_clinica/controller/globalController.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
-import 'package:app_clinica/widgets/calendar.dart';
 import 'package:app_clinica/widgets/header.dart';
 import 'package:app_clinica/widgets/hour.dart';
 import 'package:flutter/material.dart';
@@ -52,10 +52,17 @@ class SelectHourPageController extends GetxController {
         context,
         'Consulta agendada com sucesso',
         'textinho com os detalhes da consulta',
-        (){ Get.back();Get.back();Get.back();Get.back();Get.back(); }
-        
+        (){ 
+          MyGlobalQueryController myGlobalQueryController = Get.find();
+          myGlobalQueryController.date = selectedHour.value; 
+          myGlobalQueryController.addQuery();
+          Get.back();Get.back();Get.back();Get.back();Get.back();
+          }
         );
+
       
+    }else{
+      showConfirmationDialog(context, 'Alerta', 'Por favor, selecione um horário disponível',);
     }
   }
 }

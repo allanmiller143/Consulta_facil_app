@@ -1,4 +1,5 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, avoid_function_literals_in_foreach_calls
+import 'package:app_clinica/controller/globalController.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/header.dart';
@@ -90,6 +91,8 @@ class SelectDoctorPageController extends GetxController {
       showConfirmationDialog(context, 'Alerta', 'Por favor, selecione um especialista para proceguir para a proxima etapa! ');
     }
     else{
+      MyGlobalQueryController myGlobalQueryController = Get.find();
+      myGlobalQueryController.specialist = selected.value;
       Get.toNamed('/date');
     }
   }
@@ -115,7 +118,6 @@ class SelectDoctorPageController extends GetxController {
         tempSearchStore = [];
         queryResultado.forEach((element) {
           if (element['Nome'].toString().startsWith(capitalizedValor)) {
-            print(element);
             tempSearchStore.add(element);
           }
         });

@@ -39,7 +39,7 @@ class MyHeader extends StatelessWidget {
             color: const Color.fromARGB(255, 130, 189, 223),
             borderRadius: BorderRadius.circular(120)
           ),
-          child: IconButton(onPressed: (){showConfirmationDialog(context, 'info da tela ', 'escolha um tipo de serviço',);}, icon: Icon(Icons.info_outline,color: Color.fromARGB(255, 255, 255, 255),)),
+          child: IconButton(onPressed: (){showConfirmationDialog(context, 'info da tela ', 'escolha um tipo de serviço',);}, icon:const  Icon(Icons.info_outline,color: Color.fromARGB(255, 255, 255, 255),)),
         )
       ],
     );

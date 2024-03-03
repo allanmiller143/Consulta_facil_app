@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
+import 'package:app_clinica/controller/globalController.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/header.dart';
@@ -16,37 +17,37 @@ class SelectSpecialtyPageController extends GetxController {
   final List<Map<String, dynamic>> dados = [
     {
       'title': 'Cardiologista',
-      'imageAsset': 'assets/imgs/cardiologista.png',
+      'imageAsset': 'assets/imgs/Cardiologista.png',
       'content': 'O cardiologista é um médico especializado em cuidar do sistema cardiovascular, tratando condições como doenças cardíacas, hipertensão e insuficiência cardíaca.',
       'search' : 'c'
     },
     {
       'title': 'Dermatologista',
-      'imageAsset': 'assets/imgs/dermatologista.png',
+      'imageAsset': 'assets/imgs/Dermatologista.png',
       'content': 'O dermatologista é um especialista em doenças da pele, cabelo e unhas, podendo tratar condições como acne, eczema, psoríase e câncer de pele.',
       'search' : 'D'
     },
     {
       'title': 'Ortopedista',
-      'imageAsset': 'assets/imgs/ortopedista.png',
+      'imageAsset': 'assets/imgs/Ortopedista.png',
       'content': 'O ortopedista é um médico que se dedica ao tratamento de lesões e doenças relacionadas aos ossos, articulações, músculos, ligamentos e tendões.',
       'search' : 'o'
     },
     {
       'title': 'Oftalmologista',
-      'imageAsset': 'assets/imgs/oftamologista.png',
+      'imageAsset': 'assets/imgs/Oftamologista.png',
       'content': 'O oftalmologista é responsável pelo diagnóstico e tratamento de condições oculares, como miopia, astigmatismo, catarata e glaucoma.',
       'search' : 'o'
     },
     {
       'title': 'Ginecologista',
-      'imageAsset': 'assets/imgs/ginecologista.png',
+      'imageAsset': 'assets/imgs/Ginecologista.png',
       'content': 'O ginecologista é um médico especializado em saúde da mulher, abordando questões relacionadas ao sistema reprodutivo, contracepção e cuidados ginecológicos.',
       'search' : 'g'
     },
     {
       'title': 'Dentista',
-      'imageAsset': 'assets/imgs/dentista.png',
+      'imageAsset': 'assets/imgs/Dentista.png',
       'content': 'O dentista é um médico especializado em saúde da mulher, abordando questões relacionadas ao sistema reprodutivo, contracepção e cuidados ginecológicos.',
       'search' : 'd'
     },
@@ -54,58 +55,47 @@ class SelectSpecialtyPageController extends GetxController {
   ].obs;
     
 
-  List<Widget> buildWidgets(context,list) {
-    List<Widget> rows = [];
-  
-      for (int i = 0; i < list.length; i += 2) {
-        List<Widget> rowChildren = [];
-
-        // Adicione o primeiro item da linha
-        rowChildren.add(
-          MySpecialtyCardButton(
-            selected: selected,
-            label: list[i]['title'],
-            onPressed: () {
-              selected.value = list[i]['title'];
-            },
-            image: list[i]['imageAsset'],
-            info: list[i]['title'],
-       
-          ),
-        );
-
-        // Adicione o segundo item da linha se existir
-        if (i + 1 < list.length) {
-
+    List<Widget> buildWidgets(context,dados) {
+      List<Widget> rows = [];
+        for (int i = 0; i < dados.length; i += 2) {
+          List<Widget> rowChildren = [];
           rowChildren.add(
             MySpecialtyCardButton(
               selected: selected,
-              label: list[i + 1]['title'],
+              label: dados[i]['title'],
               onPressed: () {
-                selected.value = dados[i + 1]['title'];
+                selected.value = dados[i]['title'];
               },
-              image: list[i + 1]['imageAsset'],
-              info: list[i + 1]['content'],
-             
+              image: dados[i]['imageAsset'],
+              info: dados[i]['content'],
             ),
           );
 
-    
-      
+          // Adicione o segundo item da linha se existir
+          if (i + 1 < dados.length) {
+            rowChildren.add(
+              MySpecialtyCardButton(
+                selected: selected,
+                label: dados[i + 1]['title'],
+                onPressed: () {
+                  selected.value = dados[i + 1]['title'];
+                },
+                image: dados[i + 1]['imageAsset'],
+                info: dados[i + 1]['content'],
+              
+              ),
+            );
+          }
 
-   
-    }
-
-    rows.add(
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: rowChildren,
-      ),
-    );
-  }
-
-  return rows;
-}
+        rows.add(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: rowChildren,
+          ),
+        );
+      }
+      return rows;   
+    } 
 
     var search = TextEditingController();
     RxString selected = ''.obs;
@@ -116,12 +106,14 @@ class SelectSpecialtyPageController extends GetxController {
         showConfirmationDialog(context, 'Alerta', 'Por favor, selecione uma especialidade para proceguir para a proxima etapa! ');
       }
       else{
+        MyGlobalQueryController myGlobalQueryController = Get.find();
+        myGlobalQueryController.specialty = selected.value;
+        myGlobalQueryController.image = 'assets/imgs/${selected.value}.png';
         Get.toNamed('/doctor');
       }
     }
 
       buscaInicial(valor) {
-        print('chamei');
         if (valor.length != 0 && queryResultado.isEmpty) {
           var capitalizedValor = valor[0].toUpperCase() + valor.substring(1);
           barraDePesquisa.value = true;
@@ -136,7 +128,6 @@ class SelectSpecialtyPageController extends GetxController {
           queryResultado = [];
           barraDePesquisa.value = false;
         }
-        print(queryResultado);
         }
  }
 

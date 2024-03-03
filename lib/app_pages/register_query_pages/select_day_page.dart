@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
+import 'package:app_clinica/controller/globalController.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/calendar.dart';
 import 'package:app_clinica/widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 
@@ -37,6 +37,8 @@ class SelectDayPageController extends GetxController {
 
   void toNextScreen(context) {
     if(isDateAvailable(selectedDay.value)){
+      MyGlobalQueryController myGlobalQueryController = Get.find();
+      myGlobalQueryController.date = selectedDay.value;
       Get.toNamed('/hour',arguments: [selectedDay]);
     }else{
       showConfirmationDialog(context, 'Alerta', 'Por favor, selecione uma data para proceguir para a proxima etapa! ');
