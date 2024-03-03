@@ -204,7 +204,7 @@ class EditProfilePage extends StatelessWidget {
                     ),
                     SizedBox(height: 30,),
 
-                    MyButton(label: 'Alterar', borderRadius: BorderRadius.circular(50),  onPressed: (){editProfilePageController.change(context);},color: const Color.fromARGB(255, 255, 255, 255),fontColor:Color.fromARGB(255, 61, 102, 159)),
+                    MyButton(label: 'Salvar', borderRadius: BorderRadius.circular(50),  onPressed: (){editProfilePageController.change(context);},color: const Color.fromARGB(255, 255, 255, 255),fontColor:Color.fromARGB(255, 61, 102, 159)),
                     SizedBox(height: 30,),
                            
                   ],
