@@ -1,4 +1,4 @@
-import 'package:app_clinica/controller/globalController.dart';
+import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:get/get.dart';
 
@@ -80,25 +80,13 @@ bool validateCPF(String cpf) {
       }
 
       // ainda precisa validar cpf no banco de dados
+
      
       if(mensagemRetorno == 'Campos ínvalidos:\n'){
-        
-        Map<String,dynamic> data = {
-          'Nome completo': info['Nome completo'],
-          'CEP': info['CEP'],
-          'Estado': info['Estado'],
-          'Cidade': info['Cidade'],
-          'Bairro': info['Bairro'],
-          'Rua' : info['Rua'],
-          'Numero': info['Numero'],
-          'Telefone': info['Telefone'],
-          'cpf': info['cpf'],
-          'Data de Nascimento': info['Data de Nascimento'],
-          'Data': true    
-        };
+
         showConfirmationDialogFunction(context, 'Sucesso', 'Dados cadastrados com sucesso!\n\n Agora voce pode agendar uma consulta.' ,(){ Get.back();Get.back();});
         MyGlobalController myGlobalController = Get.find();
-        myGlobalController.userInfo2.addAll(data);
+        myGlobalController.userInfo.addAll(info);
 
 
          

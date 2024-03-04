@@ -17,129 +17,63 @@ class MyQueryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 20),
-        child: Column(
-          children: [
-            Material(
-              elevation: 5,
-              shadowColor: const Color.fromARGB(255, 46, 118, 154),
-              borderRadius: BorderRadius.circular(10),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: MediaQuery.of(context).size.width * 0.35,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(width: 0.5, color: const Color.fromARGB(255, 255, 255, 255)),
-                  gradient: const LinearGradient(
-                    colors: [
-                      Color.fromARGB(255, 255, 255, 255),
-                      Color.fromARGB(255, 255, 255, 255),
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(3, 3, 10, 3),
-                      width: MediaQuery.of(context).size.width * 0.35,
-                      height: double.infinity,
-                      decoration:  BoxDecoration(
-                        color: const Color.fromARGB(255, 25, 117, 148),
-                        image: DecorationImage(image: AssetImage(info['Image'],),scale: 1.1),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(5),
-                          bottomLeft: Radius.circular(5),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        margin:const EdgeInsets.fromLTRB(0, 5, 2, 2),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Container(
-                                child:  Text(
-                                 info['Specialty'],
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                  style: const  TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w900, fontSize: 20, letterSpacing: 0.001),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                child:  Text(
-                                  DateFormat.yMMMMd('pt_BR').format( info['Date'].toLocal()),
-                                
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                  style:const  TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w300),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                child: Text(
-                                  info['Specialist'],
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                  style:const TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold, fontSize: 18, letterSpacing: 0.001),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                                    decoration: BoxDecoration(
-                                      color:const Color.fromARGB(255, 25, 95, 151),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: const Text(
-                                      'Editar',
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                      style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Container(
-                                    padding:const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                                    decoration: BoxDecoration(
-                                      color: const Color.fromARGB(255, 193, 16, 16),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: const Text(
-                                      'Cancelar',
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                      style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+
+    String dateInfo = '${DateFormat.yMMMMd('pt_BR').format(info['Date'].toLocal())} ás ${DateFormat.Hm('pt_BR').format(info['Date'].toLocal())}';
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: onPressed,
+          child: ListTile(
+            title: Text(info['Specialty'],style: const TextStyle(color:  Color.fromARGB(255, 255, 255, 255),fontSize: 20),),
+            subtitle: Text(dateInfo,style: const TextStyle(color:  Color.fromARGB(255, 255, 255, 255),fontSize: 14,fontWeight: FontWeight.w200)),
+            trailing: const Icon(Icons.arrow_forward_ios_rounded,color: Color.fromARGB(255, 255, 255, 255)),
+            onTap: onPressed,
+        
+          )
         ),
-      ),
+        const Padding(
+          padding:  EdgeInsets.fromLTRB(15,0,15,0),
+          child: Divider(),
+        )
+      ],
+    );
+  }
+}
+
+
+class MyEditQueryButton extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final VoidCallback onPressed;
+
+
+  const MyEditQueryButton({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: onPressed,
+          child: ListTile(
+            title: Text(title,style: const TextStyle(color:  Color.fromARGB(255, 255, 255, 255),fontSize: 18),),
+            subtitle: Text(subtitle,style: const TextStyle(color:  Color.fromARGB(255, 255, 255, 255),fontSize: 12,fontWeight: FontWeight.w200)),
+            trailing: const Icon(Icons.arrow_forward_ios_rounded,color: Color.fromARGB(255, 255, 255, 255)),
+            onTap: onPressed,
+        
+          )
+        ),
+        const Padding(
+          padding:  EdgeInsets.fromLTRB(15,0,15,0),
+          child: Divider(),
+        )
+      ],
     );
   }
 }

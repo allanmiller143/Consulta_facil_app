@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, avoid_function_literals_in_foreach_calls
-import 'package:app_clinica/controller/globalController.dart';
+import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/header.dart';
@@ -13,6 +13,7 @@ class SelectDoctorPageController extends GetxController {
   var search = TextEditingController();
   RxString selected = ''.obs;
   RxBool barraDePesquisa = false.obs;
+
   var queryResultado = [];
   var tempSearchStore = [];
 
@@ -45,7 +46,27 @@ class SelectDoctorPageController extends GetxController {
       },
       // Adicione mais médicos conforme necessário
     ].obs;
-  List<Widget> buildWidgets(context) {
+
+void addSearch() {
+  for (int i = 0; i < dados.length; i++) {
+    String title = dados[i]['title'];
+    String prefix = title.contains('Dra. ') ? 'Dra. ' : 'Dr. ';
+    int prefixIndex = prefix.length;
+
+      String firstLetter = title[prefixIndex];
+      
+      // Criar um novo mapa temporário com o tipo correto
+      Map<String, String> searchMap = {'Search': firstLetter};
+      
+      // Adicionar ao mapa original
+      dados[i].addAll(searchMap);
+  
+  }
+}
+
+
+  List<Widget> buildWidgets(context,dados) {
+    addSearch();
     List<Widget> rows = [];
       for (int i = 0; i < dados.length; i += 2) {
         List<Widget> rowChildren = [];
@@ -97,37 +118,22 @@ class SelectDoctorPageController extends GetxController {
     }
   }
   
-  buscaInicial(valor) async {
-    if (valor.length == 0) {
-      queryResultado = [];
-      tempSearchStore = [];
-      
-    } else {
-      var capitalizedValor = valor[0].toUpperCase() + valor.substring(1);
-      barraDePesquisa.value = true;
-
-      if (queryResultado.isEmpty && valor.length == 1) {
-
-        for(var x in dados){
-          if(x['title'].toString().startsWith(capitalizedValor)){
-            queryResultado.add(x);
-          }
-        }
-    
-      } else {
-        tempSearchStore = [];
-        queryResultado.forEach((element) {
-          if (element['Nome'].toString().startsWith(capitalizedValor)) {
-            tempSearchStore.add(element);
-          }
-        });
-        if(tempSearchStore.isNotEmpty){
-          barraDePesquisa.value = false;
+   buscaInicial(valor) {
+        if (valor.length != 0 && queryResultado.isEmpty) {
+          var capitalizedValor = valor[0].toUpperCase() + valor.substring(1);
           barraDePesquisa.value = true;
-        } 
-      }
+          for(var x in dados){
+            if(x['Search'].toString().startsWith(capitalizedValor)){
+              queryResultado.add(x);
+            }
+          }
+          
+        }
+        else if(valor.length == 0){
+          queryResultado = [];
+          barraDePesquisa.value = false;
+        }
     }
-  }
 }
 
 class SelectDoctorPage extends StatelessWidget {
@@ -145,8 +151,8 @@ class SelectDoctorPage extends StatelessWidget {
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
                       colors: [
-                        Color.fromARGB(255, 77, 136, 213),
-                        Color.fromARGB(255, 7, 24, 58),
+                        Color.fromARGB(255, 15, 39, 108),
+                        Color.fromARGB(255, 6, 18, 42),
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -157,16 +163,28 @@ class SelectDoctorPage extends StatelessWidget {
                     child: Column(
                       children: [
                         MyHeader(),
-                        MySearchTextFormField(controller: selectDoctorPageController.search,color: Color.fromARGB(255, 61, 102, 159),onChanged: (){}),
+                        MySearchTextFormField(controller: selectDoctorPageController.search,color: Color.fromARGB(255, 61, 102, 159),onChanged: (){ selectDoctorPageController.buscaInicial(selectDoctorPageController.search.text);}),
                         SizedBox(height: 20,),
-                        Text('Selecione um especilaista',style: TextStyle( fontFamily: 'Nunito-VariableFont_wght', color: Color.fromARGB(255, 255, 255, 255),fontSize: 20,fontWeight: FontWeight.w600 ),),
+                        GestureDetector(
+                          onTap: (){
+                            print(selectDoctorPageController.dados);
+                          },
+                          child: Text('Selecione um especilaista',style: TextStyle( fontFamily: 'Nunito-VariableFont_wght', color: Color.fromARGB(255, 255, 255, 255),fontSize: 20,fontWeight: FontWeight.w600 ),)),
                         SizedBox(height:5),
                         
                         Expanded(
                             child: 
-                            ListView(
-                              children:
-                                  selectDoctorPageController.buildWidgets(context),
+                            Obx(
+                              ()=> selectDoctorPageController.barraDePesquisa.value?
+                              
+                              ListView(
+                                children:
+                                    selectDoctorPageController.buildWidgets(context,selectDoctorPageController.queryResultado),
+                              ):
+                              ListView(
+                                children:
+                                    selectDoctorPageController.buildWidgets(context,selectDoctorPageController.dados),
+                              )
                             )
                           ),
                           SizedBox(height: 30,),

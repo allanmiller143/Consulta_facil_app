@@ -30,7 +30,10 @@ class LoginPage extends StatelessWidget {
                             height: MediaQuery.of(context).size.height * 0.25,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
-                                colors: [Color.fromARGB(222, 14, 114, 237), Color.fromARGB(255, 16, 213, 235)],
+                                colors: [
+                                  Color.fromARGB(255, 15, 39, 108),
+                                  Color.fromARGB(255, 6, 18, 42),
+                                  ],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ),
@@ -118,7 +121,7 @@ class LoginPage extends StatelessWidget {
                                       print('abrir tela de cadastro');
                                       Get.toNamed('/signUp');
                                     },
-                                  child: Text('Cadastre-se agora!',style: TextStyle(fontWeight: FontWeight.bold,color:Color.fromARGB(222, 14, 114, 237)),)),
+                                  child: Text('Cadastre-se agora!',style: TextStyle(fontWeight: FontWeight.bold,color:Color.fromARGB(255, 15, 39, 108)),)),
 
                                 ],
                               )

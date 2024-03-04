@@ -1,7 +1,7 @@
 
 // ignore_for_file: must_be_immutable
 import 'package:app_clinica/app_pages/register_query_pages/validate_user_data.dart';
-import 'package:app_clinica/controller/globalController.dart';
+import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/services/complete_cep.dart';
 import 'package:app_clinica/widgets/Born_date.dart';
 import 'package:app_clinica/widgets/alert.dart';
@@ -56,9 +56,6 @@ class InsertUserDataPageController extends GetxController {
         'Insira um CEP válido para completar os campos! ',
       );
     }
-
-    print(dados);
-
     // Verifica se a chave 'localidade' existe e não é nula antes de acessá-la
     cidade.text = dados.containsKey("localidade") ? dados["localidade"] : '';
     estado.text = dados.containsKey("uf") ? dados["uf"] : '';
@@ -100,8 +97,8 @@ class InsertUserDataPage extends StatelessWidget {
                   decoration:const BoxDecoration(
                       gradient: LinearGradient(
                       colors: [
-                        Color.fromARGB(255, 77, 136, 213),
-                        Color.fromARGB(255, 7, 24, 58),
+                        Color.fromARGB(255, 15, 39, 108),
+                       Color.fromARGB(255, 6, 18, 42),
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -128,6 +125,7 @@ class InsertUserDataPage extends StatelessWidget {
                             label: 'continuar',
                             borderRadius: BorderRadius.circular(50),
                             onPressed: (){
+                    
                               var info = {
                                 'Nome completo': insertUserDataPageController.nome.text,
                                 'CEP': insertUserDataPageController.cep.text,
@@ -138,7 +136,8 @@ class InsertUserDataPage extends StatelessWidget {
                                 'Numero': insertUserDataPageController.numero.text,
                                 'Telefone': insertUserDataPageController.telefone.text,
                                 'cpf': insertUserDataPageController.cpf.text,
-                                'Data de nascimento': insertUserDataPageController.selectedDate
+                                'Data de nascimento': insertUserDataPageController.selectedDate.value,
+                                'Data': true
                               };
                               validarCampos(info, context);
                               },

@@ -11,7 +11,6 @@ Widget buildCalendar(SelectDayPageController selectDayPageController) => Obx(
   () => Material(
     elevation: 5,
     borderRadius: BorderRadius.circular(30),
-    shadowColor:const  Color.fromARGB(255, 17, 70, 135),
     child: Container(
       padding: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
@@ -23,7 +22,7 @@ Widget buildCalendar(SelectDayPageController selectDayPageController) => Obx(
         lastDay: DateTime.utc(DateTime.now().year, DateTime.now().month + 2, 14),
         focusedDay: selectDayPageController.focusedDay.value,
         selectedDayPredicate: (day) {
-          return  selectDayPageController.isDateAvailable(day) && isSameDay(selectDayPageController.selectedDay.value, day);
+          return   selectDayPageController.selectedDay.value.isAfter(DateTime.now().subtract(const Duration(days: 1))) && selectDayPageController.isDateAvailable(day) && isSameDay(selectDayPageController.selectedDay.value, day);
         },
         headerStyle: const HeaderStyle(
           
@@ -32,7 +31,7 @@ Widget buildCalendar(SelectDayPageController selectDayPageController) => Obx(
           titleTextStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
           
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 12, 53, 79), // Define a cor de fundo como branco
+            color: Color.fromARGB(255, 6, 26, 54), // Define a cor de fundo como branco
             borderRadius: BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30)),
             
           )
@@ -49,7 +48,7 @@ Widget buildCalendar(SelectDayPageController selectDayPageController) => Obx(
         ),
         calendarBuilders: CalendarBuilders(
           defaultBuilder: (context, day, focusedDay) {
-            bool isAvailable = selectDayPageController.isDateAvailable(day);
+            bool isAvailable = selectDayPageController.isDateAvailable(day) && day.isAfter(DateTime.now().subtract(const Duration(days: 1)));
             return Container(
               decoration: BoxDecoration(
                 color: isAvailable ? Colors.green : Colors.white, // Cor verde se disponível, senão branco

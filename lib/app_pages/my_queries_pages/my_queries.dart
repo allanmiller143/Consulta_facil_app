@@ -1,4 +1,4 @@
-import 'package:app_clinica/controller/globalController.dart';
+import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/widgets/header.dart';
 import 'package:app_clinica/widgets/query_card.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +23,7 @@ class QueriesPageController extends GetxController {
         MyQueryButton(
           info: list[i],
           onPressed: () {
+            Get.toNamed('/query_details', arguments: [list[i]]);
           }
         ),
       );
@@ -49,8 +50,8 @@ class QueriesPage extends StatelessWidget {
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color.fromARGB(255, 77, 136, 213),
-                    Color.fromARGB(255, 7, 24, 58),
+                    Color.fromARGB(255, 15, 39, 108),
+                    Color.fromARGB(255, 6, 18, 42),
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -60,22 +61,22 @@ class QueriesPage extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                 child: Column(
                   children: [
-                    const Padding(
-                      padding:  EdgeInsets.fromLTRB(25, 0, 25, 0),
+                     Padding(
+                      padding:  const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: Column(
                         children: [
-                          MyHeader(),
-                          SizedBox(height: 20),
+                          const MyHeader(),
+                          const SizedBox(height: 20),
                           Text(
-                            'Suas Consultas',
-                            style: TextStyle(
+                            queriesPageController.queryResults.isEmpty?   'Você ainda não possui consultas' : 'Suas consultas',
+                            style:const  TextStyle(
                               fontFamily: 'Nunito-VariableFont_wght',
                               color: Color.fromARGB(255, 255, 255, 255),
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                         ],
                       ),
                     ),
@@ -83,8 +84,19 @@ class QueriesPage extends StatelessWidget {
                       child: 
                       queriesPageController.queryResults.isEmpty?
                       ListView(
-                        children: const [
-                           Center(child: Text('Você não tem consultas',style: TextStyle( fontFamily: 'Nunito-VariableFont_wght', color: Color.fromARGB(255, 255, 255, 255),fontSize: 20,fontWeight: FontWeight.w600 ),)),
+                        children:  [
+                           Center(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              height: MediaQuery.of(context).size.height * 0.5,
+                              decoration: const BoxDecoration(
+           
+                                image: DecorationImage(image: AssetImage('assets/imgs/no_queries.png'),fit: BoxFit.cover,scale: 1.2),
+                              ),
+
+                            )
+                            
+                          ),
                         ]
                       ):
                       ListView(

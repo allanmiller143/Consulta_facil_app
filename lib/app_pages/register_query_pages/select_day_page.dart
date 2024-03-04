@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
-import 'package:app_clinica/controller/globalController.dart';
+import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/calendar.dart';
@@ -27,7 +27,7 @@ class SelectDayPageController extends GetxController {
   List<DateTime> availableDates = [
     DateTime.utc(2024, 2, 29),
     DateTime.utc(2024, 2, 30),
-    DateTime.utc(2024, 3, 5),
+    DateTime.utc(2024, 3, 3),
     
   ];
 
@@ -61,8 +61,8 @@ class SelectDatePage extends StatelessWidget {
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
                       colors: [
-                        Color.fromARGB(255, 77, 136, 213),
-                        Color.fromARGB(255, 7, 24, 58),
+                        Color.fromARGB(255, 15, 39, 108),
+                        Color.fromARGB(255, 6, 18, 42),
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,

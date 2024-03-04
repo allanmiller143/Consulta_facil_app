@@ -35,12 +35,12 @@ class MyHourCardButton extends StatelessWidget {
                 height: MediaQuery.of(context).size.width * 0.2,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  border: Border.all(width: isSelected ? 3 : 2,color: isSelected ?const  Color.fromARGB(255, 0, 0, 0) : const Color.fromARGB(255, 255, 255, 255)),
+                  border: Border.all(width: isSelected ? 3 : 2,color: isSelected ?Color.fromARGB(255, 255, 255, 255) : Color.fromARGB(255, 0, 0, 0)),
                   
                   gradient:const LinearGradient(
                     colors: [
-                      Color.fromARGB(255, 133, 188, 221),
-                      Color.fromARGB(255, 43, 61, 136),
+                        Color.fromARGB(255, 15, 39, 108),
+                        Color.fromARGB(255, 6, 18, 42),
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter

@@ -15,12 +15,13 @@ class MyButton extends StatelessWidget {
         super.key,
         required this.label,
         required this.onPressed,
-        this.width = 150,
+        this.width = 170,
         this.heigth = 50,
         this.borderRadius = const BorderRadius.all(Radius.circular(10)),
-        this.color = const Color.fromARGB(222, 14, 114, 237),
+        this.color = const Color.fromARGB(255, 15, 39, 108),
         this.fontColor = const Color.fromARGB(222, 255, 255, 255)
       });
+     
 
 
   @override

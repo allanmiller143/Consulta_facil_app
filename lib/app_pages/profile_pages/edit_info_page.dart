@@ -2,10 +2,11 @@
 
 import 'package:app_clinica/app_pages/profile_pages/profile_page.dart';
 import 'package:app_clinica/app_pages/profile_pages/validade_user_edit_page.dart';
-import 'package:app_clinica/app_pages/register_query_pages/insert_data_page.dart';
-import 'package:app_clinica/controller/globalController.dart';
+
+import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/services/complete_cep.dart';
 import 'package:app_clinica/widgets/alert.dart';
+import 'package:app_clinica/widgets/born_date.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/header.dart';
 import 'package:app_clinica/widgets/insert_textfield.dart';
@@ -35,6 +36,7 @@ class EditProfilePageController extends GetxController {
       estado.text = myGlobalController.userInfo['Estado'];
       bairro.text = myGlobalController.userInfo['Bairro'];
       cidade.text = myGlobalController.userInfo['Cidade'];
+      selectedDate.value = myGlobalController.userInfo['Data de nascimento'];
     }
     else{
       email.text = myGlobalController.userInfo['E-mail'];
@@ -89,7 +91,7 @@ class EditProfilePageController extends GetxController {
   var bairroAtivado  = false.obs;
   var cep = TextEditingController();
   var nome = TextEditingController(); 
-
+  Rx<DateTime?> selectedDate = DateTime.now().obs;
 
   List<Widget> buildWidgets(context) {
     List<Widget> cards = [];
@@ -99,6 +101,7 @@ class EditProfilePageController extends GetxController {
         cards.add( buildTextField(info['campos'][1], cpf, context,maxLength: 11,type: 1));
         cards.add( buildTextField(info['campos'][2], telefone, context,maxLength: 11,type: 1));
         cards.add( buildTextField(info['campos'][3], email, context,type: 1));
+        cards.add( Obx(()=> buildDatePickerWidget(selectedDate, context,)));
       }
       else{
         cards.add( buildTextField(info['campos'][0], email, context,type: 1));
@@ -126,6 +129,7 @@ class EditProfilePageController extends GetxController {
         'cpf': cpf.text,
         'Telefone': telefone.text,
         'E-mail': email.text,
+        'Data de nascimento': selectedDate.value
       };
 
       validarCamposEdit(data, context);
@@ -163,8 +167,8 @@ class EditProfilePage extends StatelessWidget {
               decoration: BoxDecoration(
                   gradient: LinearGradient(
                   colors: [
-                    Color.fromARGB(255, 77, 136, 213),
-                    Color.fromARGB(255, 7, 24, 58),
+                    Color.fromARGB(255, 15, 39, 108),
+                    Color.fromARGB(255, 6, 18, 42),
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
