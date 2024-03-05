@@ -53,7 +53,7 @@ class ProfilePageController extends GetxController {
 
             if(info[i]['title'] == 'Dados Pessoais'){
               infoSelected = info[i];
-              if(myGlobalController.userInfo['Data'] == false){
+              if(myGlobalController.userInfo[0]['Data'] == false){
                 info[i]['campos'] = ['Email'];
 
               }
@@ -63,7 +63,7 @@ class ProfilePageController extends GetxController {
 
             if(info[i]['title'] == 'Endereço'){
               infoSelected = info[i];
-              if(myGlobalController.userInfo['Data'] == false){
+              if(myGlobalController.userInfo[0]['Data'] == false){
                 showConfirmationDialog(context, 'Alerta', 'você ainda não inseriu seus dados. de endereço e contato.',);
               }
               else{

@@ -19,10 +19,10 @@ Widget buildCalendar(SelectDayPageController selectDayPageController) => Obx(
       ),
       child: TableCalendar(
         firstDay: DateTime.utc(DateTime.now().year, DateTime.now().month, 1),
-        lastDay: DateTime.utc(DateTime.now().year, DateTime.now().month + 2, 14),
+        lastDay: DateTime.utc(DateTime.now().year, DateTime.now().month + 1, 14),
         focusedDay: selectDayPageController.focusedDay.value,
         selectedDayPredicate: (day) {
-          return   selectDayPageController.selectedDay.value.isAfter(DateTime.now().subtract(const Duration(days: 1))) && selectDayPageController.isDateAvailable(day) && isSameDay(selectDayPageController.selectedDay.value, day);
+          return  selectDayPageController.selectedDay.value.isAfter(DateTime.now().subtract(const Duration(days: 1))) && selectDayPageController.isDateAvailable(day) && isSameDay(selectDayPageController.selectedDay.value, day);
         },
         headerStyle: const HeaderStyle(
           

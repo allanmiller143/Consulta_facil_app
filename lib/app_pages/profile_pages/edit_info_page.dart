@@ -25,21 +25,21 @@ class EditProfilePageController extends GetxController {
     profilePageController = Get.find();
     info = profilePageController.infoSelected;
 
-    if(myGlobalController.userInfo['Data'] == true){
-      cpf.text = myGlobalController.userInfo['cpf'];
-      cep.text = myGlobalController.userInfo['CEP'];
-      nome.text = myGlobalController.userInfo['Nome completo'];
-      email.text = myGlobalController.userInfo['E-mail'];
-      telefone.text = myGlobalController.userInfo['Telefone'];
-      rua.text = myGlobalController.userInfo['Rua'];
-      numero.text = myGlobalController.userInfo['Numero'];
-      estado.text = myGlobalController.userInfo['Estado'];
-      bairro.text = myGlobalController.userInfo['Bairro'];
-      cidade.text = myGlobalController.userInfo['Cidade'];
-      selectedDate.value = myGlobalController.userInfo['Data de nascimento'];
+    if(myGlobalController.userInfo[0]['Data'] == true){
+      cpf.text = myGlobalController.userInfo[0]['CPF'];
+      cep.text = myGlobalController.userInfo[0]['CEP'];
+      nome.text = myGlobalController.userInfo[0]['Name'];
+      email.text = myGlobalController.userInfo[0]['E-mail'];
+      telefone.text = myGlobalController.userInfo[0]['Phone'];
+      rua.text = myGlobalController.userInfo[0]['Street'];
+      numero.text = myGlobalController.userInfo[0]['Number'];
+      estado.text = myGlobalController.userInfo[0]['State'];
+      bairro.text = myGlobalController.userInfo[0]['Locale'];
+      cidade.text = myGlobalController.userInfo[0]['City'];
+      selectedDate.value = myGlobalController.userInfo[0]['Birthdate'];
     }
     else{
-      email.text = myGlobalController.userInfo['E-mail'];
+      email.text = myGlobalController.userInfo[0]['E-mail'];
     }
     
     super.onInit();
@@ -67,8 +67,6 @@ class EditProfilePageController extends GetxController {
         'Insira um CEP válido para completar os campos! ',
       );
     }
-
-    print(dados);
 
     // Verifica se a chave 'localidade' existe e não é nula antes de acessá-la
     cidade.text = dados.containsKey("localidade") ? dados["localidade"] : '';
@@ -125,11 +123,11 @@ class EditProfilePageController extends GetxController {
 
     if(info['title'] == 'Dados Pessoais' && info['campos'].length >2){
       data = {
-        'Nome completo': nome.text,
-        'cpf': cpf.text,
-        'Telefone': telefone.text,
+        'Name': nome.text,
+        'CPF': cpf.text,
+        'Phone': telefone.text,
         'E-mail': email.text,
-        'Data de nascimento': selectedDate.value
+        'Birthdate': selectedDate.value
       };
 
       validarCamposEdit(data, context);
@@ -137,11 +135,11 @@ class EditProfilePageController extends GetxController {
     if(info['title'] == 'Endereço'){
       data = {
         'CEP': cep.text,
-        'Estado': estado.text,
-        'Cidade': cidade.text,
-        'Bairro': bairro.text,
-        'Rua' : rua.text,
-        'Numero': numero.text,
+        'State': estado.text,
+        'City': cidade.text,
+        'Locale': bairro.text,
+        'Street' : rua.text,
+        'Number': numero.text,
       };
       validateEditAddress(data, context);
     }
@@ -207,10 +205,8 @@ class EditProfilePage extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 30,),
-
                     MyButton(label: 'Salvar', borderRadius: BorderRadius.circular(50),  onPressed: (){editProfilePageController.change(context);},color: const Color.fromARGB(255, 255, 255, 255),fontColor:Color.fromARGB(255, 61, 102, 159)),
-                    SizedBox(height: 30,),
-                           
+                    SizedBox(height: 30,),     
                   ],
                 ),
               ),

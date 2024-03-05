@@ -43,8 +43,7 @@ bool validateCPF(String cpf) {
   }
 
   bool validarCEP(String cep) {
-    cep = cep.replaceAll(
-        RegExp(r'\D'), ''); // Remove caracteres não numéricos do CEP
+    cep = cep.replaceAll(RegExp(r'\D'), ''); // Remove caracteres não numéricos do CEP
     // Verifica se o CEP tem 8 dígitos
     if (cep.length != 8) {
       return false;
@@ -53,17 +52,15 @@ bool validateCPF(String cpf) {
   }
 
   bool validarTelefone(String telefone) {
-    telefone = telefone.replaceAll(
-        RegExp(r'\D'), ''); // Remove caracteres não numéricos do telefone
+    telefone = telefone.replaceAll(RegExp(r'\D'), ''); // Remove caracteres não numéricos do telefone
+
     // Verifica se o CEP tem 8 dígitos
     if (telefone.length != 11) {
       return false;
     }
-    return true; // O teelfone é válido
+    return true; // O telefone é válido
   }
-
-
-
+ 
  void validarCampos(Map<String,dynamic> info,context) async{
     if(info['Nome completo'].isEmpty || info['CEP'].isEmpty || info['Estado'].isEmpty || info['Cidade'].isEmpty || info['Bairro'].isEmpty || info['Rua'].isEmpty || info['Numero'].isEmpty|| info['Telefone'].isEmpty || info['cpf'].isEmpty){
       showConfirmationDialog(context, 'Alerta', 'Por favor, preencha todos os campos para prosseguir!');
@@ -86,7 +83,7 @@ bool validateCPF(String cpf) {
 
         showConfirmationDialogFunction(context, 'Sucesso', 'Dados cadastrados com sucesso!\n\n Agora voce pode agendar uma consulta.' ,(){ Get.back();Get.back();});
         MyGlobalController myGlobalController = Get.find();
-        myGlobalController.userInfo.addAll(info);
+        myGlobalController.userInfo[0].addAll(info);
 
 
          

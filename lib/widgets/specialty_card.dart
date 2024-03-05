@@ -33,51 +33,52 @@ class MySpecialtyCardButton extends StatelessWidget {
             return Column(
               children: [
                   Stack(
-                    children:[ Material(
-                    elevation: 8,
-                    shadowColor: const Color.fromARGB(255, 0, 0, 0),
-                    borderRadius: BorderRadius.circular(250),
-                    child: Container(
-                      width:  MediaQuery.of(context).size.width * 0.35,
-                      height: MediaQuery.of(context).size.width * 0.35,
-                      decoration: BoxDecoration(
+                    children:[ 
+                    Material(
+                        elevation: 8,
+                        shadowColor: const Color.fromARGB(255, 0, 0, 0),
                         borderRadius: BorderRadius.circular(250),
-                        border: Border.all(width: isSelected ? 3 : 2,color: isSelected ?const  Color.fromARGB(255, 0, 0, 0) : const Color.fromARGB(255, 255, 255, 255)),
-                        image: DecorationImage(
-                          image: AssetImage(image),
-                          scale:  isSelected ? 1.2 :1.5
-                    
+                        child: Container(
+                          width:  MediaQuery.of(context).size.width * 0.35,
+                          height: MediaQuery.of(context).size.width * 0.35,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(250),
+                            border: Border.all(width: isSelected ? 3 : 2,color: isSelected ?const Color.fromARGB(255, 255, 255, 255) :const  Color.fromARGB(255, 0, 0, 0)),
+                            image: DecorationImage(
+                              image: AssetImage(image),
+                              scale:  isSelected ? 1.2 :1.5
+                        
+                            ),
+                            gradient:const LinearGradient(
+                              colors: [
+                                Color.fromARGB(255, 133, 188, 221),
+                                Color.fromARGB(255, 43, 61, 136),
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter
+                        
+                            )
+                          ),
                         ),
-                        gradient:const LinearGradient(
-                          colors: [
-                             Color.fromARGB(255, 133, 188, 221),
-                             Color.fromARGB(255, 43, 61, 136),
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter
-                    
-                        )
                       ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: GestureDetector(
-                      onTap: (){
-                        showConfirmationDialog(context, label, info);
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width *0.09,
-                        height: MediaQuery.of(context).size.width *0.09,
-                        decoration: BoxDecoration(
-                          color: isSelected ? const Color.fromARGB(255, 70, 118, 185) : const Color.fromARGB(255, 255, 255, 255),
-                          borderRadius: BorderRadius.circular(120)
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: GestureDetector(
+                          onTap: (){
+                            showConfirmationDialog(context, label, info);
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width *0.09,
+                            height: MediaQuery.of(context).size.width *0.09,
+                            decoration: BoxDecoration(
+                              color: isSelected ? const Color.fromARGB(255, 70, 118, 185) : const Color.fromARGB(255, 255, 255, 255),
+                              borderRadius: BorderRadius.circular(120)
+                            ),
+                            child: isSelected ? const Icon(Icons.info_rounded,color: Color.fromARGB(255, 255, 255, 255),) : const Icon(Icons.info_rounded,color: Color.fromARGB(255, 70, 118, 185),),
+                          ),
                         ),
-                        child: isSelected ? const Icon(Icons.info_rounded,color: Color.fromARGB(255, 255, 255, 255),) : const Icon(Icons.info_rounded,color: Color.fromARGB(255, 70, 118, 185),),
-                      ),
-                    ),
-                  )
+                      )
                     ]
                   ),
                 const SizedBox(height: 10,),

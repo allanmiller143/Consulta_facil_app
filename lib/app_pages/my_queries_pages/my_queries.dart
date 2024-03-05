@@ -24,6 +24,7 @@ class QueriesPageController extends GetxController {
           info: list[i],
           onPressed: () {
             Get.toNamed('/query_details', arguments: [list[i]]);
+            print(list[i]['Query_id']);
           }
         ),
       );

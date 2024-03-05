@@ -44,7 +44,7 @@ void showConfirmationDialogFunction(context, title, content, onPressed) {
             title,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 14, 114, 237),
+              color: Color.fromARGB(255, 15, 39, 108),
               fontFamily: 'Nunito-VariableFont_wght',
             ),
           ),
@@ -57,7 +57,7 @@ void showConfirmationDialogFunction(context, title, content, onPressed) {
               onPressed: onPressed,
               child: const Text(
                 'Continuar',
-                style: TextStyle(color: Color.fromARGB(255, 14, 114, 237)),
+                style: TextStyle(color: Color.fromARGB(255, 15, 39, 108)),
               ),
             ),
           ],
@@ -78,7 +78,7 @@ void showConfirmationDialogFunction2(context, title, content, onPressed) {
             title,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 14, 114, 237),
+              color: Color.fromARGB(255, 15, 39, 108),
               fontFamily: 'Nunito-VariableFont_wght',
             ),
           ),
@@ -91,14 +91,14 @@ void showConfirmationDialogFunction2(context, title, content, onPressed) {
               onPressed: (){Get.back();},
               child: const Text(
                 'Cancelar',
-                style: TextStyle(color: Color.fromARGB(255, 14, 114, 237)),
+                style: TextStyle(color: Color.fromARGB(255, 15, 39, 108)),
               ),
             ),
             TextButton(
               onPressed: onPressed,
               child: const Text(
                 'Continuar',
-                style: TextStyle(color: Color.fromARGB(255, 14, 114, 237)),
+                style: TextStyle(color: Color.fromARGB(255, 15, 39, 108)),
               ),
             ),
           ],

@@ -26,6 +26,8 @@ class InsertUserDataPageController extends GetxController {
   var cep = TextEditingController();
   var nome = TextEditingController();
 
+
+
   // faz a consulta na api, e completa os campos automaticamente
 
   @override

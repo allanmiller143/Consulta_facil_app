@@ -22,20 +22,14 @@ class EditQueriesPageController extends GetxController {
           title: 'Alterar Dr./Dra. ${data['Specialist']}',
           subtitle: 'Altere o médico da sua consulta, talvez outro médico não tenha a mesma disponibilidade de horário que o anterior.', 
           onPressed: () {
-            print('ir para tela de ediçao de medico');
+            MyGlobalQueryController myGlobalQueryController = Get.find();
+            myGlobalQueryController.queryState = 'alterar';
+            myGlobalQueryController.addEditedQuery(data);
+            Get.back();
+            Get.toNamed('/doctor');
           }
         ),
       );
-      cards.add(
-        MyEditQueryButton(
-          title: 'Alterar Data e Hora',
-          subtitle: 'Altere a data e hora da sua consulta', 
-          onPressed: () {
-            print('ir para tela de ediçao de medico');
-          }
-        ),
-      );
-    
     return cards;
   }
 
@@ -52,8 +46,7 @@ class EditQueriesPage extends StatelessWidget {
         init: EditQueriesPageController(),
         builder: (_) {
           return Scaffold(
-
-            body:  Container(
+            body:Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(

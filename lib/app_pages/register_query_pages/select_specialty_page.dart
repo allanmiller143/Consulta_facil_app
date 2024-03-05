@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
 import 'package:app_clinica/configs/controllers/globalController.dart';
+import 'package:app_clinica/configs/default_pages/loading_page.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/header.dart';
@@ -67,8 +68,7 @@ class SelectSpecialtyPageController extends GetxController {
     else{
       MyGlobalQueryController myGlobalQueryController = Get.find();
       myGlobalQueryController.specialty = selected.value;
-      myGlobalQueryController.image = 'assets/imgs/${selected.value}.png';
-      Get.toNamed('/doctor');
+      Get.toNamed('/doctor',arguments: ['inserir']);
     }
   }
 
@@ -94,11 +94,10 @@ class SelectSpecialtyPageController extends GetxController {
     super.onInit();
     myGlobalController = Get.find();
    
-    
   }
 
   init() async{
-    dados = await myGlobalController.fetchDataFromApi();
+    dados = await myGlobalController.fetchDataFromApi('Specialty');
     return dados;
   }
  
@@ -174,11 +173,7 @@ class SelectSpecialtyPage extends StatelessWidget {
                   } else if (snapshot.hasError) {
                     return Text('Erro ao carregar a lista de pets: ${snapshot.error}');
                   } else {
-                  return const Center(
-                      child: CircularProgressIndicator(
-                        color: Color.fromARGB(255, 253, 72, 0),
-                      ),
-                    );
+                  return LoadingWidget();
                   }
               }
             ),

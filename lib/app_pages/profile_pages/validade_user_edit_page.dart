@@ -54,48 +54,48 @@ bool validateCPF(String cpf) {
   }
 
  void validarCamposEdit(Map<String,dynamic> info,context) async{
-    if(info['Nome completo'].isEmpty || info['Telefone'].isEmpty || info['cpf'].isEmpty || info['E-mail'].isEmpty){
+    if(info['Name'].isEmpty || info['Phone'].isEmpty || info['CPF'].isEmpty || info['E-mail'].isEmpty){
       showConfirmationDialog(context, 'Alerta', 'Por favor, preencha todos os campos para prosseguir!');
     }else{
-      String mensagemRetorno = 'Campos ínvalidos:\n';
-      if(!validateCPF(info['cpf'])){ // aqui verificar se o cpf existe
-        mensagemRetorno = '${mensagemRetorno}cpf\n';
+      String returnMessege = 'Campos ínvalidos:\n';
+      if(!validateCPF(info['CPF'])){ // aqui verificar se o cpf existe
+        returnMessege = '${returnMessege}cpf\n';
       }
-      if(!validarTelefone(info['Telefone'])){
-        mensagemRetorno = '${mensagemRetorno}telefone\n';
+      if(!validarTelefone(info['Phone'])){
+        returnMessege = '${returnMessege}telefone\n';
       }
       // ainda precisa validar cpf no banco de dados
-      if(mensagemRetorno == 'Campos ínvalidos:\n'){
+      if(returnMessege == 'Campos ínvalidos:\n'){
         
        
         showConfirmationDialogFunction(context, 'Sucesso', 'Dados Aletrados com sucesso!' ,(){ Get.back();Get.back();});
         MyGlobalController myGlobalController = Get.find();
-        myGlobalController.userInfo.addAll(info);
+        myGlobalController.userInfo[0].addAll(info);
 
 
          
       }else {
-        showConfirmationDialog(context, 'Alerta', mensagemRetorno);
+        showConfirmationDialog(context, 'Alerta', returnMessege);
   
       }
     }
   }
 
   void validateEditAddress(Map<String,dynamic> info,context) async{
-    if(info['CEP'].isEmpty || info['Cidade'].isEmpty || info['Bairro'].isEmpty || info['Rua'].isEmpty || info['Numero'].isEmpty){
+    if(info['CEP'].isEmpty || info['City'].isEmpty || info['Locale'].isEmpty || info['Street'].isEmpty || info['Number'].isEmpty){
       showConfirmationDialog(context, 'Alerta', 'Por favor, preencha todos os campos para prosseguir!');
     }else{
         Map<String,dynamic> data = {
           'CEP': info['CEP'],
-          'Estado': info['Estado'],
-          'Cidade': info['Cidade'],
-          'Bairro': info['Bairro'],
-          'Rua' : info['Rua'],
-          'Numero': info['Numero'],
+          'State': info['Estado'],
+          'City': info['Cidade'],
+          'Locale': info['Bairro'],
+          'Street' : info['Rua'],
+          'Number': info['Numero'],
         };
         showConfirmationDialogFunction(context, 'Sucesso', 'Dados Aletrados com sucesso!' ,(){ Get.back();Get.back();});
         MyGlobalController myGlobalController = Get.find();
-        myGlobalController.userInfo.addAll(data);
+        myGlobalController.userInfo[0].addAll(data);
     }
 
   }

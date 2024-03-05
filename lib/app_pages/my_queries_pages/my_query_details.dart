@@ -4,7 +4,6 @@ import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/header.dart';
-import 'package:app_clinica/widgets/query_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
