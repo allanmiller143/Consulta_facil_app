@@ -17,12 +17,13 @@ class SelectHourPageController extends GetxController {
   late List<Map<String, dynamic>> availableHours;
 
   @override
-  void onInit() { 
+  void onInit() async { 
     myGlobalQueryController = Get.find();
     myGlobalController = Get.find();
 
     if (myGlobalQueryController.queryState == 'alterar') {
       selectedHour.value = myGlobalQueryController.date;
+      availableHours = await myGlobalController.fetchDataFromApi('Hours');
 
       availableHours.add({
         'Hour': DateTime.utc(

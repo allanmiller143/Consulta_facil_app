@@ -1,5 +1,6 @@
 import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
+import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/dropDrown.dart';
 import 'package:app_clinica/widgets/header.dart';
@@ -33,6 +34,16 @@ class InsertSpecialistPageController extends GetxController {
         cards.add( CustomDropdownButton(items: const {'Especialidade':'Especialidade','Especialidade1':'Cardiologista','Especialidade2':'Dermatologista','Especialidade3':'Pediatra','Especialidade4':'Neurologista'}, controller: selectedType,label: 'Especialidade do médico ',));
        
     return cards;
+  }
+
+  void toNextScreen(context) {
+    if(name.text.isEmpty || crm.text.isEmpty || phone.text.isEmpty || email.text.isEmpty || selectedType.value == 'Especialidade'){
+      showConfirmationDialog(context, 'Alerta', 'Por favor, confira se todos os campos foram preenchidos corretamente.');
+    }
+    else{
+      Get.toNamed('/insert_specialist_horary');
+    }
+    
   }
   
   init() async {
@@ -127,7 +138,7 @@ class InsertSpecialistPage extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 20,),
-                            MyButton(label: 'Cadastrar horários', onPressed: (){Get.toNamed('/insert_specialist_horary');},width: 250),
+                            MyButton(label: 'Cadastrar horários', onPressed: (){insertSpecialistPageController.toNextScreen(context);},width: 250),
                             const SizedBox(height: 30),
                           ],
                         ),

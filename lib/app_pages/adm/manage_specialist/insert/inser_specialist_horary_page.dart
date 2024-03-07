@@ -19,16 +19,9 @@ class InsertSpecialistHoraryPageController extends GetxController {
   RxList<DateTime> selectedDates = <DateTime>[].obs; // salva as datas atuais
   late List<Map<String, dynamic>> availableDates;
   RxList<DateTime> selectedDatesFinal = <DateTime>[].obs; // salva todas as datas ja cadastradas
-
-  var morningList = [];
-  var afternoonList = [];
-
-  var jsons = [
-  
-  ];
+  var jsons = [];
 
   
-
 
 
   void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -55,13 +48,19 @@ class InsertSpecialistHoraryPageController extends GetxController {
     super.onInit();
   }
 
-
-
-
   void toNextScreen(context) {
+    if(selectedDatesFinal.isNotEmpty){
+      showConfirmationDialog(context, 'Sucesso', 'Datas cadastradas com sucesso!');
+      Get.back();
+      Get.back();
+      Get.back();
+      Get.back();
+    }
+    else{
+      showConfirmationDialog(context, 'Alerta', 'Cadastre ao menos uma data com os horários' );
+    }
     
   }
-
 
   init() async {
     availableDates = await myGlobalController.fetchDataFromApi('Dates');
@@ -101,11 +100,18 @@ class InsertSpecialistHoraryPage extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(25, 15, 25, 0),
                         child: Column(
                           children: [
-                            MyHeader(),
+                            GestureDetector(
+                              onTap: (){
+                                for (var date in insertSpecialistHoraryPageController.selectedDatesFinal){
+                                    print(date);
+                                }
+                              },
+                              child: MyHeader()
+                              ),
                             Expanded(
                               child: ListView(
                                 children:[ 
-                                  buildHoraryCalendar(insertSpecialistHoraryPageController),
+                                  buildHoraryCalendar(insertSpecialistHoraryPageController,context),
                                   SizedBox(height: 20,),
                                   MyButton(label: 'Horario', onPressed: (){print(insertSpecialistHoraryPageController.selectedDates);     hihi(context,insertSpecialistHoraryPageController.selectedDates, insertSpecialistHoraryPageController);})
 
@@ -117,12 +123,7 @@ class InsertSpecialistHoraryPage extends StatelessWidget {
                               children: [
                                 Icon(Icons.info,color: const Color.fromARGB(255, 255, 255, 255),),
                                 SizedBox(width: 10,),
-                                GestureDetector(
-                                  onTap: (){
-                                    print(insertSpecialistHoraryPageController.selectedDatesFinal);
-                                    print(insertSpecialistHoraryPageController.jsons);
-                                  },
-                                  child: Expanded(
+                                Expanded(
                                     child: SizedBox(
                                       width: 50,
                                       child: Text(
@@ -136,7 +137,7 @@ class InsertSpecialistHoraryPage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                ),
+                                
                               ],
                             ),
                             SizedBox(height: 20,),

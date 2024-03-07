@@ -15,7 +15,7 @@ import 'package:app_clinica/app_pages/user/profile_pages/profile_page.dart';
 import 'package:app_clinica/app_pages/user/register_query_pages/insert_data_page.dart';
 import 'package:app_clinica/app_pages/user/register_query_pages/select_day_page.dart';
 import 'package:app_clinica/app_pages/user/register_query_pages/select_doctor_page.dart';
-import 'package:app_clinica/app_pages/user/select_hour_page.dart';
+import 'package:app_clinica/app_pages/user/register_query_pages/select_hour_page.dart';
 import 'package:app_clinica/app_pages/user/register_query_pages/select_specialty_page.dart';
 import 'package:app_clinica/configs/default_pages/no_internet_page.dart';
 import 'package:app_clinica/login_pages/forget_password_page.dart';
