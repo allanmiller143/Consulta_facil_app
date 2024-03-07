@@ -10,6 +10,16 @@ class LoginPageController extends GetxController {
   var password = TextEditingController();
   var confirmPassword = TextEditingController();
 
+  login(){
+    if(email.text == 'a'){
+      Get.toNamed('/home');
+    }
+    else{
+      
+      Get.toNamed('/adm_home');
+    }
+  }
+
 }
 
 class LoginPage extends StatelessWidget {
@@ -105,7 +115,8 @@ class LoginPage extends StatelessWidget {
                                         SizedBox(
                                           height: 30,
                                         ),
-                                        MyButton(label: 'Entrar', onPressed: (){ Get.toNamed('/home');})
+                                        MyButton(
+                                        label: 'Entrar', onPressed: (){loginPageController.login();})
 
                                       ],
                                     ),

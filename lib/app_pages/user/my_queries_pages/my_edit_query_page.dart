@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/widgets/header.dart';
 import 'package:app_clinica/widgets/query_card.dart';

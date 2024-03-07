@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
 
-import 'package:app_clinica/app_pages/profile_pages/profile_page.dart';
-import 'package:app_clinica/app_pages/profile_pages/validade_user_edit_page.dart';
+import 'package:app_clinica/app_pages/user/profile_pages/profile_page.dart';
+import 'package:app_clinica/app_pages/user/profile_pages/validade_user_edit_page.dart';
 
 import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/services/complete_cep.dart';

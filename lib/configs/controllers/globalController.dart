@@ -9,12 +9,13 @@ class MyGlobalController extends GetxController {
   late List<Map<String,dynamic>> userInfo;
   List<Map<String,dynamic>> userQueries = [];
   RxBool internet = true.obs;
+  late String token;
 
 
   Future<List<Map<String, dynamic>>> fetchDataFromApi(barra) async { // simula uma consulta na API
     try {
       // Simula um atraso de 2 segundos para a resposta da API
-      await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 0));
       var responseData = a[barra];
       return responseData;
     } catch (e) {

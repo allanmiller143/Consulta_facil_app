@@ -2,7 +2,7 @@
 
 
 
-import 'package:app_clinica/app_pages/register_query_pages/select_day_page.dart';
+import 'package:app_clinica/app_pages/user/register_query_pages/select_day_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:table_calendar/table_calendar.dart';

@@ -1,6 +1,6 @@
 
 // ignore_for_file: must_be_immutable
-import 'package:app_clinica/app_pages/register_query_pages/validate_user_data.dart';
+import 'package:app_clinica/app_pages/user/register_query_pages/validate_user_data.dart';
 import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/services/complete_cep.dart';
 import 'package:app_clinica/widgets/Born_date.dart';

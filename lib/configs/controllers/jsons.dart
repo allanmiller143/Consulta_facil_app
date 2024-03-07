@@ -106,6 +106,7 @@
       'City': 'Cidade',
       'State': 'SP',
       'Birthdate': DateTime.now(),
+      'Type': 'user',
       'Data': true
     },
   ];
@@ -117,6 +118,60 @@
     'Specialty' : specialtyData,
     'Dates': availableDates,
     'Hours': availableHours,
-    'User_info':  userInfo
+    'User_info':  userInfo,
+    'All_specialist': allSpecialist
   };
+
+
+List<Map<String, dynamic>> allSpecialist = [
+  {
+    'Name': 'Dr. João Silva Alencar Soares',
+    'Specialty': 'Cardiologista',
+    'CRM' : '359558-PE',
+    'Phone': '819986258785',
+    'E-mail':'joao_silva@gmail.com',
+    'Search' : 'J'
+  },
+  {
+    'Name': 'Dra. Maria Oliveira Santos',
+    'Specialty': 'Dermatologista',
+    'CRM' : '452112-SP',
+    'Phone': '119827456321',
+    'E-mail':'maria_oliveira@gmail.com',
+    'Search' : 'M'
+  },
+  {
+    'Name': 'Dr. Carlos Roberto Mendes',
+    'Specialty': 'Ortopedista',
+    'CRM' : '275889-RJ',
+    'Phone': '219923214587',
+    'E-mail':'carlos_mendes@gmail.com',
+    'Search' : 'C'
+  },
+  {
+    'Name': 'Dra. Juliana Costa Lima',
+    'Specialty': 'Ginecologista',
+    'CRM' : '701234-MG',
+    'Phone': '31333234455',
+    'E-mail':'juliana_costa@gmail.com',
+    'Search' : 'J'
+  },
+  {
+    'Name': 'Dr. André Luiz Pereira',
+    'Specialty': 'Otorrinolaringologista',
+    'CRM' : '180987-BA',
+    'Phone': '71992887766',
+    'E-mail':'andre_pereira@gmail.com',
+    'Search' : 'A'
+  },
+  {
+    'Name': 'Dra. Fernanda Oliveira Costa',
+    'Specialty': 'Endocrinologista',
+    'CRM' : '509876-SP',
+    'Phone': '119726543210',
+    'E-mail':'fernanda_costa@gmail.com',
+    'Search' : 'F'
+  },
+];
+
 

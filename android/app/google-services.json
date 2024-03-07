@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "34326593995",
+    "project_id": "consulta-facil-91791",
+    "storage_bucket": "consulta-facil-91791.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34326593995:android:d29948378b4a6fae2bb64e",
+        "android_client_info": {
+          "package_name": "com.allan_miller.replica_google_classroom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7urYWcK_V9_j5caiShSf2e0zLA5j_X5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34326593995:android:cf5027da3a3748712bb64e",
+        "android_client_info": {
+          "package_name": "com.example.app_clinica"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7urYWcK_V9_j5caiShSf2e0zLA5j_X5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

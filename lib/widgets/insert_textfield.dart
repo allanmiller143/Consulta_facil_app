@@ -1,8 +1,8 @@
 
 
 
-import 'package:app_clinica/app_pages/profile_pages/edit_info_page.dart';
-import 'package:app_clinica/app_pages/register_query_pages/insert_data_page.dart';
+import 'package:app_clinica/app_pages/user/profile_pages/edit_info_page.dart';
+import 'package:app_clinica/app_pages/user/register_query_pages/insert_data_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

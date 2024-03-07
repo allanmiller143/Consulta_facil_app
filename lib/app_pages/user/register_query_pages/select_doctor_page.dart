@@ -17,7 +17,6 @@ class SelectDoctorPageController extends GetxController {
   late List<Map<String, dynamic>> data;
   late MyGlobalController myGlobalController;
   var queryResult = [];
-  var tempSearchStore = [];
 
 
   void addSearch() {

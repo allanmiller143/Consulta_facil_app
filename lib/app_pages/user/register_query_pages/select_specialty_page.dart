@@ -14,7 +14,6 @@ class SelectSpecialtyPageController extends GetxController {
   late MyGlobalController myGlobalController;
   RxBool barraDePesquisa = false.obs;
   var queryResultado = [];
-  var tempSearchStore = [];
   late List<Map<String, dynamic>> dados;
   var search = TextEditingController();
   RxString selected = ''.obs;
