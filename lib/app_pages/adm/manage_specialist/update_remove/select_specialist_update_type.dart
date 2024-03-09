@@ -1,8 +1,8 @@
 import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
+import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/header.dart';
 import 'package:app_clinica/widgets/profile_widget.dart';
-import 'package:app_clinica/widgets/query_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,8 +18,18 @@ class SelectSpecialistUpdatePageController extends GetxController {
   
   List<Widget> buildQueryCards(context, list) {
     List<Widget> cards = [];
-      cards.add(MyProfileWidgetButton(info: const {'title': 'Alterar Informações do médico','subtitle': 'Altere informações, como nome, email, telefone...',},onPressed: (){Get.toNamed('/update_specialist');},),);
-      cards.add(MyProfileWidgetButton(info: const {'title': 'Atualizar Horários','subtitle': 'Altere os horários do medico selecionado',},onPressed: (){Get.toNamed('/list_specialist');},),);
+      cards.add(MyProfileWidgetButton(
+        info: const {'title': 'Alterar Informações do médico',
+        'subtitle': 'Altere informações, como nome, email, telefone...',},
+        onPressed: (){Get.toNamed('/update_specialist');},),
+      );
+      cards.add(MyProfileWidgetButton(
+        info: const {'title': 'Atualizar Horários',
+        'subtitle': 'Altere os horários do medico selecionado',},
+        onPressed: (){
+          showConfirmationDialog(context, 'Alerta', 'Funcionalidade em desenvolvimento...',);
+        },),
+      );
     return cards;
   }
   

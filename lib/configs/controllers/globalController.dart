@@ -15,7 +15,7 @@ class MyGlobalController extends GetxController {
   Future<List<Map<String, dynamic>>> fetchDataFromApi(barra) async { // simula uma consulta na API
     try {
       // Simula um atraso de 2 segundos para a resposta da API
-      await Future.delayed(const Duration(seconds: 0));
+      await Future.delayed(const Duration(seconds: 1));
       var responseData = a[barra];
       return responseData;
     } catch (e) {

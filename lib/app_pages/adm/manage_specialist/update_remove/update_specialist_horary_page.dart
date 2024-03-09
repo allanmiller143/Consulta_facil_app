@@ -3,7 +3,6 @@ import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
-import 'package:app_clinica/widgets/calendar.dart';
 import 'package:app_clinica/widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

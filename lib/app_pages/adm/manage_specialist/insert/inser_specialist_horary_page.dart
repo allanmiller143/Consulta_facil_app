@@ -5,7 +5,6 @@ import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
-import 'package:app_clinica/widgets/calendar.dart';
 import 'package:app_clinica/widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,9 +19,6 @@ class InsertSpecialistHoraryPageController extends GetxController {
   late List<Map<String, dynamic>> availableDates;
   RxList<DateTime> selectedDatesFinal = <DateTime>[].obs; // salva todas as datas ja cadastradas
   var jsons = [];
-
-  
-
 
   void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (selectedDay.isAfter(DateTime.now().subtract(Duration(days: 1)))) {
@@ -39,7 +35,6 @@ class InsertSpecialistHoraryPageController extends GetxController {
     }
   }
 
-
   @override
   onInit() async {
     myGlobalController = Get.find();
@@ -47,7 +42,6 @@ class InsertSpecialistHoraryPageController extends GetxController {
     
     super.onInit();
   }
-
   void toNextScreen(context) {
     if(selectedDatesFinal.isNotEmpty){
       showConfirmationDialog(context, 'Sucesso', 'Datas cadastradas com sucesso!');

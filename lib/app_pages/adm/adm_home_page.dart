@@ -1,7 +1,6 @@
   // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
   import 'package:app_clinica/configs/controllers/globalController.dart';
   import 'package:app_clinica/configs/default_pages/loading_page.dart';
-  import 'package:app_clinica/widgets/alert.dart';
   import 'package:app_clinica/widgets/header.dart';
   import 'package:app_clinica/widgets/home_card.dart';
   import 'package:flutter/material.dart';
@@ -73,7 +72,7 @@
                                         selected: admHomePageController.selected,
                                         label: 'Consultas',
                                         onPressed: () {
-                                          Get.toNamed('/queries');
+                                          Get.toNamed('/queries_adm');
                                         },
                                         image: 'assets/imgs/minhasConsultas.png',
                                       ),

@@ -25,9 +25,9 @@ class SelectSpecialtyPageController extends GetxController {
           rowChildren.add(
             MySpecialtyCardButton(
               selected: selected,
-              label: dados[i]['title'],
+              label: dados[i]['Specialty'],
               onPressed: () {
-                selected.value = dados[i]['title'];
+                selected.value = dados[i]['Specialty'];
               },
               image: dados[i]['imageAsset'],
               info: dados[i]['content'],
@@ -39,9 +39,9 @@ class SelectSpecialtyPageController extends GetxController {
             rowChildren.add(
               MySpecialtyCardButton(
                 selected: selected,
-                label: dados[i + 1]['title'],
+                label: dados[i + 1]['Specialty'],
                 onPressed: () {
-                  selected.value = dados[i + 1]['title'];
+                  selected.value = dados[i + 1]['Specialty'];
                 },
                 image: dados[i + 1]['imageAsset'],
                 info: dados[i + 1]['content'],
@@ -76,7 +76,7 @@ class SelectSpecialtyPageController extends GetxController {
       var capitalizedValor = valor[0].toUpperCase() + valor.substring(1);
       barraDePesquisa.value = true;
       for(var x in dados){
-        if(x['title'].toString().startsWith(capitalizedValor)){
+        if(x['Specialty'].toString().startsWith(capitalizedValor)){
           queryResultado.add(x);
         }
       }

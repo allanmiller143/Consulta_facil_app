@@ -2,7 +2,6 @@ import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
 import 'package:app_clinica/widgets/header.dart';
 import 'package:app_clinica/widgets/profile_widget.dart';
-import 'package:app_clinica/widgets/query_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

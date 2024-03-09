@@ -1,25 +1,40 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, avoid_print
+import 'package:app_clinica/configs/default_pages/load_widget.dart';
+import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPageController extends GetxController {
   var email = TextEditingController();
   var password = TextEditingController();
-  var confirmPassword = TextEditingController();
 
-  login(){
-    if(email.text == 'a'){
-      Get.toNamed('/home');
+
+  login(context) async{
+    if(email.text.isNotEmpty || password.text.isNotEmpty){
+      try{
+        showLoad(context);
+        await FirebaseAuth.instance.signInWithEmailAndPassword(email: email.text, password: password.text);
+        Get.back();
+
+        Get.toNamed('/home');
+      } on FirebaseException catch(e){
+        Get.back();
+        if(e.code == 'invalid-credential' || e.code == 'wrong-password'){
+          showConfirmationDialog(context,  'Alerta', 'Email ou senha invalida');
+        }
+        else{
+          showConfirmationDialog(context,  'Alerta', 'Ocorreu um erro inesperado, tente novamente mais tarde');
+        }
+      }
+    }else{
+          showConfirmationDialog(context,  'Alerta', 'Preencha todos os campos');
+
     }
-    else{
-      
-      Get.toNamed('/adm_home');
-    }
+    
   }
-
 }
 
 class LoginPage extends StatelessWidget {
@@ -116,7 +131,7 @@ class LoginPage extends StatelessWidget {
                                           height: 30,
                                         ),
                                         MyButton(
-                                        label: 'Entrar', onPressed: (){loginPageController.login();})
+                                        label: 'Entrar', onPressed: (){loginPageController.login(context);})
 
                                       ],
                                     ),

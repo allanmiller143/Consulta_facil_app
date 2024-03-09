@@ -1,4 +1,4 @@
-import 'package:app_clinica/app_pages/adm/manage_specialist/update/list_specialist_page.dart';
+import 'package:app_clinica/app_pages/adm/manage_specialist/update_remove/list_specialist_page.dart';
 import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
 import 'package:app_clinica/widgets/alert.dart';

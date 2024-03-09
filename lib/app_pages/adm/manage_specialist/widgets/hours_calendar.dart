@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:app_clinica/app_pages/adm/manage_specialist/insert/inser_specialist_horary_page.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/dropDrown.dart';

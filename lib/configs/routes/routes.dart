@@ -2,10 +2,11 @@ import 'package:app_clinica/app_pages/adm/adm_home_page.dart';
 import 'package:app_clinica/app_pages/adm/manage_specialist/adm_manage_specialist_page.dart';
 import 'package:app_clinica/app_pages/adm/manage_specialist/insert/inser_specialist_horary_page.dart';
 import 'package:app_clinica/app_pages/adm/manage_specialist/insert/insert_specialist_page.dart';
-import 'package:app_clinica/app_pages/adm/manage_specialist/update/list_specialist_page.dart';
-import 'package:app_clinica/app_pages/adm/manage_specialist/update/select_specialist_update_type.dart';
-import 'package:app_clinica/app_pages/adm/manage_specialist/update/update_specialist_horary_page.dart';
-import 'package:app_clinica/app_pages/adm/manage_specialist/update/update_specialist_page.dart';
+import 'package:app_clinica/app_pages/adm/manage_specialist/update_remove/list_specialist_page.dart';
+import 'package:app_clinica/app_pages/adm/manage_specialist/update_remove/select_specialist_update_type.dart';
+import 'package:app_clinica/app_pages/adm/manage_specialist/update_remove/update_specialist_horary_page.dart';
+import 'package:app_clinica/app_pages/adm/manage_specialist/update_remove/update_specialist_page.dart';
+import 'package:app_clinica/app_pages/adm/my_queries_adm/my_queries_adm_page.dart';
 import 'package:app_clinica/app_pages/user/home_page.dart';
 import 'package:app_clinica/app_pages/user/my_queries_pages/my_edit_query_page.dart';
 import 'package:app_clinica/app_pages/user/my_queries_pages/my_queries.dart';
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/insert_horary_specialist', page: () => InsertSpecialistsDaysPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
         GetPage(name: '/select_specialist_update_type', page: () => SelectSpecialistUpdatePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
         GetPage(name: '/insert_specialist_horary', page: () => InsertSpecialistHoraryPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
+        GetPage(name: '/queries_adm', page: () => QueriesAdmPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
 
 
 

@@ -1,36 +1,36 @@
   List<Map<String, dynamic>> specialtyData = [
             {
-              'title': 'Cardiologista',
+              'Specialty': 'Cardiologista',
               'imageAsset': 'assets/imgs/Cardiologista.png',
               'content': 'O cardiologista é um médico especializado em cuidar do sistema cardiovascular, tratando condições como doenças cardíacas, hipertensão e insuficiência cardíaca.',
               'search' : 'c'
             },
             {
-              'title': 'Dermatologista',
+              'Specialty': 'Dermatologista',
               'imageAsset': 'assets/imgs/Dermatologista.png',
               'content': 'O dermatologista é um especialista em doenças da pele, cabelo e unhas, podendo tratar condições como acne, eczema, psoríase e câncer de pele.',
               'search' : 'D'
             },
             {
-              'title': 'Ortopedista',
+              'Specialty': 'Ortopedista',
               'imageAsset': 'assets/imgs/Ortopedista.png',
               'content': 'O ortopedista é um médico que se dedica ao tratamento de lesões e doenças relacionadas aos ossos, articulações, músculos, ligamentos e tendões.',
               'search' : 'o'
             },
             {
-              'title': 'Oftalmologista',
+              'Specialty': 'Oftalmologista',
               'imageAsset': 'assets/imgs/Oftamologista.png',
               'content': 'O oftalmologista é responsável pelo diagnóstico e tratamento de condições oculares, como miopia, astigmatismo, catarata e glaucoma.',
               'search' : 'o'
             },
             {
-              'title': 'Ginecologista',
+              'Specialty': 'Ginecologista',
               'imageAsset': 'assets/imgs/Ginecologista.png',
               'content': 'O ginecologista é um médico especializado em saúde da mulher, abordando questões relacionadas ao sistema reprodutivo, contracepção e cuidados ginecológicos.',
               'search' : 'g'
             },
             {
-              'title': 'Dentista',
+              'Specialty': 'Dentista',
               'imageAsset': 'assets/imgs/Dentista.png',
               'content': 'O dentista é um médico especializado em saúde da mulher, abordando questões relacionadas ao sistema reprodutivo, contracepção e cuidados ginecológicos.',
               'search' : 'd'
@@ -119,7 +119,8 @@
     'Dates': availableDates,
     'Hours': availableHours,
     'User_info':  userInfo,
-    'All_specialist': allSpecialist
+    'All_specialist': allSpecialist,
+    'Consultas': consultas
   };
 
 
@@ -174,4 +175,52 @@ List<Map<String, dynamic>> allSpecialist = [
   },
 ];
 
+
+List<Map<String, dynamic>> consultas = [
+  {
+    'Specialist': 'Dr. João Silva',
+    'Date': DateTime.utc(2024, 3, 14, 9, 0),
+    'Specialty': 'Cardiologista',
+    'Query_id': 'asde5tshdy',
+    'UserName': 'Allan Miller Silva Lima',
+    'Usercpf': '12678032400',
+    'Status': 'Concluída',
+  },
+  {
+    'Specialist': 'Dra. Maria Oliveira',
+    'Date': DateTime.utc(2024, 3, 15, 10, 30),
+    'Specialty': 'Dermatologista',
+    'Query_id': 'qwe78ghytr',
+    'UserName': 'Carla Santos',
+    'Usercpf': '23456789012',
+    'Status': 'Concluída',
+  },
+  {
+    'Specialist': 'Dr. Ricardo Santos',
+    'Date': DateTime.utc(2024, 3, 16, 11, 15),
+    'Specialty': 'Ortopedista',
+    'Query_id': 'zxcvbnm123',
+    'UserName': 'Pedro Oliveira',
+    'Usercpf': '34567890123',
+    'Status': 'Aberta',
+  },
+  {
+    'Specialist': 'Dra. Ana Souza',
+    'Date': DateTime.utc(2024, 3, 17, 14, 45),
+    'Specialty': 'Ginecologista',
+    'Query_id': 'poiuytrewq',
+    'UserName': 'Fernanda Lima',
+    'Usercpf': '45678901234',
+    'Status': 'Concluída',
+  },
+  {
+    'Specialist': 'Dr. Marcos Pereira',
+    'Date': DateTime.utc(2024, 3, 18, 16, 0),
+    'Specialty': 'Pediatria',
+    'Query_id': 'lkjhgfdsa',
+    'UserName': 'Lucas Oliveira',
+    'Usercpf': '56789012345',
+    'Status': 'Aberta',
+  },
+];
 

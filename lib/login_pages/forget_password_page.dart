@@ -1,12 +1,40 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, avoid_print
+import 'package:app_clinica/configs/default_pages/load_widget.dart';
+import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/textfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
 class ForgetPasswordPageController extends GetxController {
   var email = TextEditingController();
+
+
+  changePassword(context) async{
+    if(email.text.isNotEmpty ){
+      try{
+        showLoad(context);
+        await FirebaseAuth.instance.sendPasswordResetEmail(email: email.text);
+        Get.back();
+        showConfirmationDialog(context,  'Sucesso', 'Um link para redefinir sua senha foi enviado para ${email.text}');
+        
+      } on FirebaseException catch(e){
+        Get.back();
+        if(e.code == "user-not-found"){
+            showConfirmationDialog(context,  'Alerta', 'Usuario não encontrado, tente novamente!');
+        }
+        else{
+          showConfirmationDialog(context,  'Ocorreu um erro inesperado', 'Por favor, tente novamente mais tarde');
+        }
+        print(e);
+      }
+    }else{
+      showConfirmationDialog(context,  'Alerta', 'Insira um email para prosseguir!');
+    }
+    
+  }
 
 }
 
@@ -95,7 +123,7 @@ class ForgetPasswordPage extends StatelessWidget {
                                         SizedBox(
                                           height: 30,
                                         ),
-                                        MyButton(label: 'Enviar E-mail', onPressed: (){})
+                                        MyButton(label: 'Enviar E-mail', onPressed: (){ forgetPasswordPageController.changePassword(context);},)
                                       ],
                                     ),
                                   ),

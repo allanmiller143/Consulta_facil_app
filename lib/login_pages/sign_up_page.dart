@@ -1,14 +1,59 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, avoid_print
+import 'package:app_clinica/configs/default_pages/load_widget.dart';
+import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:random_string/random_string.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUpPageController extends GetxController {
   var email = TextEditingController();
   var password = TextEditingController();
   var confirmPassword = TextEditingController();
+
+  signUp(context) async {
+    if(password.text.isNotEmpty && password.text == confirmPassword.text){
+      print('entrei aqui');
+      try{
+        showLoad(context);
+        String id = randomAlphaNumeric(10);
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email.text, password: password.text);
+  
+        Map<String,dynamic> userInfoMap = {
+          'E-mail': email.text,
+          'Id': id,
+          'Type': 'Paciente',
+          
+        };
+        Get.back();
+        Get.toNamed('/home');
+      }on FirebaseAuthException catch(e){
+        Get.back();
+        if(e.code == 'weak-password'){
+          showConfirmationDialog(context,  'Senha fraca', 'por favor tente uma senha mais forte, uma senha com pelo menos 6 digitos');
+        }
+        if(e.code == 'email-already-in-use'){
+          showConfirmationDialog(context,  'Esse e-mail está em uso',   'Por favor tente outro e-mail');
+        }
+        showConfirmationDialog(context,  'Erro inesperado',   'Por favor tente mais tarde');
+
+      }
+    }
+    else{
+      showConfirmationDialog(context,  'Preencha todos os campos',   'todos os campos devem ser preenchidos corretamente');
+
+
+    }
+
+  }
+
+
+
+
+
+
 
 }
 
@@ -101,7 +146,7 @@ class SignUpPage extends StatelessWidget {
                                         SizedBox(
                                           height: 30,
                                         ),
-                                        MyButton(label: 'Cadastrar', onPressed: (){ print('ir para a tela do app');})
+                                        MyButton(label: 'Cadastrar', onPressed: (){signUpPageController.signUp(context);})
                                       ],
                                     ),
                                   ),
