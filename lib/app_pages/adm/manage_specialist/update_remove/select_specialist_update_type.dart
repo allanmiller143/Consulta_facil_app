@@ -27,8 +27,18 @@ class SelectSpecialistUpdatePageController extends GetxController {
         info: const {'title': 'Atualizar Horários',
         'subtitle': 'Altere os horários do medico selecionado',},
         onPressed: (){
-          showConfirmationDialog(context, 'Alerta', 'Funcionalidade em desenvolvimento...',);
+          Get.toNamed('/update_specialist_horary');
+          
         },),
+      );
+      cards.add(MyProfileWidgetButton(
+        info: const {'title': 'Remover Médico ',
+        'subtitle': 'Remove um médico do sistema',},
+        onPressed: (){
+          showConfirmationDialogFunction2(context, 'Remover médico', 'Voce tem certeza que deseja remover o medico selecionado?\na remoção desse medico removerá todos os seus horários, e cancelará qualquer consulta pendente.\nrecomenda-se, esperar o médico finalizar todas as consultas pendentes antes de remove-lo\nSe deseja continuar mesmo assim, clique no continuar', (){});
+          
+        },),
+        
       );
     return cards;
   }

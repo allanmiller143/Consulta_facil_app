@@ -15,7 +15,9 @@ class InsertSpecialistPageController extends GetxController {
   var crm = TextEditingController();
   var phone = TextEditingController();
   var email = TextEditingController();
+   var description = TextEditingController();
   var selectedType = "Especialidade".obs;
+  var selectedTypeSex = "Sexo".obs;
 
 
   
@@ -31,18 +33,25 @@ class InsertSpecialistPageController extends GetxController {
         cards.add( buildTextField('CRM', crm, context));
         cards.add( buildTextField('E-mail', email, context));
         cards.add( buildTextField('Telefone', phone, context,maxLength: 11));
-        cards.add( CustomDropdownButton(items: const {'Especialidade':'Especialidade','Especialidade1':'Cardiologista','Especialidade2':'Dermatologista','Especialidade3':'Pediatra','Especialidade4':'Neurologista'}, controller: selectedType,label: 'Especialidade do médico ',));
-       
+        cards.add( buildTextField('Descricão:  uma breve  descriçãodo medico/a', description, context,));
+
+        cards.add( CustomDropdownButton(items: const {'Especialidade':'Especialidade','Especialidade1':'Cardiologista','Especialidade2':'Dermatologista','Especialidade3':'Pediatra','Especialidade4':'Neurologista'}, controller: selectedType,label: 'Especialidade do médico/a ',));
+        cards.add( Padding(
+          padding: const EdgeInsets.fromLTRB(0,10,0,0),
+          child: CustomDropdownButton(items: const {'Sexo':'Sexo','Sexo1':'Masculino','Sexo2':'Feminino',}, controller: selectedTypeSex,label: 'Sexo do médico/a ',),
+        ));
+
     return cards;
   }
 
   void toNextScreen(context) {
-    if(name.text.isEmpty || crm.text.isEmpty || phone.text.isEmpty || email.text.isEmpty || selectedType.value == 'Especialidade'){
-      showConfirmationDialog(context, 'Alerta', 'Por favor, confira se todos os campos foram preenchidos corretamente.');
-    }
-    else{
-      Get.toNamed('/insert_specialist_horary');
-    }
+    //if(name.text.isEmpty || crm.text.isEmpty || phone.text.isEmpty || description.text.isEmpty ||email.text.isEmpty || selectedType.value == 'Especialidade' ||  selectedTypeSex.value == 'Sexo'){
+      //showConfirmationDialog(context, 'Alerta', 'Por favor, confira se todos os campos foram preenchidos corretamente.');
+   // }
+    //else{
+      Get.toNamed('/insert_horary_specialist');
+     
+   // }
     
   }
   
@@ -92,7 +101,7 @@ class InsertSpecialistPage extends StatelessWidget {
                                 children: [
                                   MyHeader(),
                                   Text(
-                                   'Inserir médico',
+                                   'Inserir médico/a',
                                     style:  TextStyle(
                                       fontFamily: 'Nunito-VariableFont_wght',
                                       color: Color.fromARGB(255, 255, 255, 255),

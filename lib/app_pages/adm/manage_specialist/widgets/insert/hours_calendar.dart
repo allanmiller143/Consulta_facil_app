@@ -43,8 +43,7 @@ Map<String, String> intervalMap = {
   '01:30': '01:30',
 };
 
-var morningList = [];
-var afternoonList = [];
+
 var availabilityList = []; // Lista geral para armazenar os JSONs
 var selectedBeginM = '08:00'.obs;
 var selectedEndM = '12:00'.obs;
@@ -59,66 +58,64 @@ var isMorningChecked = false.obs;
 
 
 void generateTimeSlots(context, list, InsertSpecialistHoraryPageController insertSpecialistHoraryPageController) {
-  morningList.clear();
-  afternoonList.clear();
+
 
   availabilityList = []; // Lista geral para armazenar os JSONs
 
   if (isAfternoonChecked.value || isMorningChecked.value) {
-    if (isMorningChecked.value && !isAfternoonChecked.value) {
-      for (var date in list) {
-        var day = date.day;
-        var month = date.month;
-        var year = date.year;
-        var startHour = int.parse(selectedBeginM.value.split(':')[0]);
-        var startMinute = int.parse(selectedBeginM.value.split(':')[1]);
-        var endHour = int.parse(selectedEndM.value.split(':')[0]);
-        var endMinute = int.parse(selectedEndM.value.split(':')[1]);
+if (isMorningChecked.value && !isAfternoonChecked.value) {
+  for (var date in list) {
+    var day = date.day;
+    var month = date.month;
+    var year = date.year;
+    var startHour = int.parse(selectedBeginM.value.split(':')[0]);
+    var startMinute = int.parse(selectedBeginM.value.split(':')[1]);
+    var endHour = int.parse(selectedEndM.value.split(':')[0]);
+    var endMinute = int.parse(selectedEndM.value.split(':')[1]);
 
-        DateTime startTime = DateTime.utc(year, month, day, startHour, startMinute);
-        DateTime endTime = DateTime.utc(year, month, day, endHour, endMinute);
+    DateTime startTime = DateTime.utc(year, month, day, startHour, startMinute);
+    DateTime endTime = DateTime.utc(year, month, day, endHour, endMinute);
 
-        int intervalHours = 0;
-        int intervalMinutes = 0;
+    int intervalHours = 0;
+    int intervalMinutes = 0;
 
-        if (selectedIntervalM.value[0] == '0' && selectedIntervalM.value[1] == '0') {
-          intervalMinutes = int.parse(selectedIntervalM.value.split(':')[1]);
-        } else {
-          intervalHours = int.parse(selectedIntervalM.value.split(':')[0]);
-          intervalMinutes = int.parse(selectedIntervalM.value.split(':')[1]);
-        }
+    if (selectedIntervalM.value[0] == '0' && selectedIntervalM.value[1] == '0') {
+      intervalMinutes = int.parse(selectedIntervalM.value.split(':')[1]);
+    } else {
+      intervalHours = int.parse(selectedIntervalM.value.split(':')[0]);
+      intervalMinutes = int.parse(selectedIntervalM.value.split(':')[1]);
+    }
 
-        var availableTimes = [];
-        while (startTime.isBefore(endTime)) {
-          availableTimes.add(startTime.toIso8601String());
-          startTime = startTime.add(Duration(hours: intervalHours, minutes: intervalMinutes));
+    var availableTimes = [];
+    while (startTime.isBefore(endTime)) {
+      availableTimes.add(startTime.toIso8601String());
+      startTime = startTime.add(Duration(hours: intervalHours, minutes: intervalMinutes));
 
-          // Certifica-se de não ultrapassar o endTime
-          if (startTime.isAfter(endTime)) {
-            break;
-          }
-
-          // Se o próximo tempo for no dia seguinte, ajuste para o início do próximo dia
-          if (startTime.day != day) {
-            startTime = DateTime.utc(year, month, day, startHour, startMinute);
-            startTime = startTime.add(Duration(hours: intervalHours, minutes: intervalMinutes));
-          }
-        }
-
-        // Cria um JSON para a data e seus horários disponíveis
-        var morningJson = {
-          'date': date.toIso8601String(),
-          'available_times': availableTimes,
-        };
-
-        // Adiciona o JSON à lista geral
-        morningList.add(morningJson);
-        availabilityList.add(morningJson);
+      // Certifica-se de não ultrapassar o endTime
+      if (startTime.isAfter(endTime)) {
+        break;
       }
 
-      // Print para teste
-      print("Morning List: $morningList");
+      // Se o próximo tempo for no dia seguinte, ajuste para o início do próximo dia
+      if (startTime.day != day) {
+        startTime = DateTime.utc(year, month, day, startHour, startMinute);
+        startTime = startTime.add(Duration(hours: intervalHours, minutes: intervalMinutes));
+      }
     }
+
+    // Cria um JSON para a data e seus horários disponíveis
+    var morningJson = {
+      'date': date.toIso8601String(),
+      'available_times': availableTimes,
+    };
+
+    // Adiciona o JSON à lista geral
+    availabilityList.add(morningJson);
+  }
+
+  // Print para teste
+  print("Morning List: $availabilityList");
+}
 
     else if (isAfternoonChecked.value && !isMorningChecked.value) {
       for (var date in list) {
@@ -167,7 +164,7 @@ void generateTimeSlots(context, list, InsertSpecialistHoraryPageController inser
         };
 
         // Adiciona o JSON à lista geral
-        availabilityList.add(afternoonJson);
+      
         availabilityList.add(afternoonJson);
       }
 

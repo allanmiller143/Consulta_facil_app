@@ -1,4 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
+import 'package:app_clinica/app_pages/adm/manage_specialist/update_remove/list_specialist_page.dart';
+import 'package:app_clinica/app_pages/adm/manage_specialist/widgets/update/horary_calendar_update.dart';
+import 'package:app_clinica/app_pages/adm/manage_specialist/widgets/update/hous_calendar_update.dart';
 import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
 import 'package:app_clinica/widgets/alert.dart';
@@ -9,68 +12,123 @@ import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 
-class InsertSpecialistsDaysPageController extends GetxController {
+class UpdateSpecialistHoraryPageController extends GetxController {
+  late ListSpecialistPageController listSpecialistPageController;
   late MyGlobalController myGlobalController;
   Rx<DateTime> selectedDay = DateTime.now().obs;
   Rx<DateTime> focusedDay = DateTime.now().obs;
+  RxList<DateTime> selectedDates = <DateTime>[].obs; // salva as datas atuais
   late List<Map<String, dynamic>> availableDates;
-  
+  RxList<DateTime> selectedDatesFinal = <DateTime>[].obs; // salva todas as datas ja cadastradas
+  late Map<String,dynamic> userInfo;
+
+  var jsons = [];
+
   void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    if (isDateAvailable(selectedDay) && selectedDay.isAfter(DateTime.now().subtract(Duration(days: 1)))) {
+    if (selectedDay.isAfter(DateTime.now().subtract(Duration(days: 1)))) {
+      if(selectedDates.contains(selectedDay)){
+        selectedDates.remove(selectedDay);
+      }
+      else{
+        selectedDates.add(focusedDay);
+      }
       this.selectedDay.value = selectedDay;
       this.focusedDay.value = focusedDay;
+      
   
     }
   }
 
+
   @override
   onInit() async {
     myGlobalController = Get.find();
+    listSpecialistPageController = Get.find();
+    userInfo = listSpecialistPageController.currentSpecialist;
+
     await initializeDateFormatting('pt_BR', null);
+
     
     super.onInit();
   }
 
 
-  bool isDateAvailable(DateTime day) {
-    for (var dateMap in availableDates) {
-      DateTime date = dateMap['Date'];
-      if (date.year == day.year && date.month == day.month && date.day == day.day) {
-        return true;
-      }
-    }
-    return false;
-  }
 
   void toNextScreen(context) {
-    if(isDateAvailable(selectedDay.value)){
-      MyGlobalQueryController myGlobalQueryController = Get.find();
-      myGlobalQueryController.date = selectedDay.value;
-      Get.toNamed('/hour',arguments: [selectedDay]);
-    }else{
-      showConfirmationDialog(context, 'Alerta', 'Por favor, selecione uma data para proceguir para a proxima etapa! ');
+    if(selectedDatesFinal.isNotEmpty){
+      showConfirmationDialog(context, 'Sucesso', 'Datas cadastradas com sucesso!');
+      Get.back();
+      Get.back();
+      Get.back();
+      Get.back();
+    }
+    else{
+      showConfirmationDialog(context, 'Alerta', 'Cadastre ao menos uma data com os horários' );
     }
     
   }
+  void addDatesToList(Map<String, dynamic> medico) {
+    List<Map<String, dynamic>> agenda = medico['Agenda'];
+    for (var entry in agenda) {
+      String dateStr = entry['Date'];
+      DateTime date = DateTime.parse(dateStr);
+      
+      // Verifica se a data já está na lista antes de adicioná-la
+      if (!selectedDatesFinal.contains(date)) {
+        selectedDatesFinal.add(date);
+      }
+    }
+  }
+  void generateAvailabilityList(Map<String, dynamic> medico_especifico) {
+    // Limpar a lista existente
+    availabilityList.clear();
 
-  init() async {
-    availableDates = await myGlobalController.fetchDataFromApi('Dates');
-    return availableDates;
+    // Iterar sobre as entradas da Agenda
+    for (var agendaEntry in medico_especifico['Agenda']) {
+      var date = DateTime.parse(agendaEntry['Date']);
+
+      var availableTimes = agendaEntry['Horarios']
+          .map((horario) => DateTime.parse(horario.replaceFirst(' ', 'T')))
+          .toList();
+
+      // Criar um JSON para a data e seus horários disponíveis
+      var entryJson = {
+        'date': date.toIso8601String(),
+        'available_times': availableTimes.map((time) => time.toIso8601String()).toList(),
+      };
+
+      // Adicionar o JSON à lista geral
+      availabilityList.add(entryJson);
+    }
+    jsons.addAll(availabilityList);
+
+    // Print para teste
+    print("Availability List: $availabilityList");
+  }
+    init() async {
+      
+      addDatesToList(userInfo);
+      generateAvailabilityList(userInfo);
+      for (var x in selectedDatesFinal) {
+        print(x);
+
+      }
+      return userInfo;
+    }
+
+
   }
 
-
-}
-
-class InsertSpecialistsDaysPage extends StatelessWidget {
-  InsertSpecialistsDaysPage({Key? key}) : super(key: key);
-  var insertSpecialistsDaysPageController = Get.put(InsertSpecialistsDaysPageController());
+class UpdateSpecialistHoraryPage extends StatelessWidget {
+  UpdateSpecialistHoraryPage({Key? key}) : super(key: key);
+  var updateSpecialistHoraryPageController = Get.put(UpdateSpecialistHoraryPageController());
   
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         body: FutureBuilder(
-              future: insertSpecialistsDaysPageController.init(),
+              future: updateSpecialistHoraryPageController.init(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                    if (snapshot.hasData) {
@@ -91,33 +149,50 @@ class InsertSpecialistsDaysPage extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(25, 15, 25, 0),
                         child: Column(
                           children: [
-                            MyHeader(),
-                            //buildCalendar(insertSpecialistsDaysPageController),
+                            GestureDetector(
+                              onTap: (){
+                                for (var date in updateSpecialistHoraryPageController.selectedDatesFinal){
+                                    print(date);
+                                }
+                              },
+                              child: MyHeader()
+                              ),
+                            Expanded(
+                              child: ListView(
+                                children:[ 
+                                  buildHoraryCalendarUpdate(updateSpecialistHoraryPageController,context),
+                                  SizedBox(height: 20,),
+                                  MyButton(label: 'Horario', onPressed: (){print(updateSpecialistHoraryPageController.selectedDates);     hihiUpdate(context,updateSpecialistHoraryPageController.selectedDates, updateSpecialistHoraryPageController);})
+
+                                ]
+                              ),
+                            ),
                             SizedBox(height: 20,),
-                            
                             Row(
                               children: [
                                 Icon(Icons.info,color: const Color.fromARGB(255, 255, 255, 255),),
                                 SizedBox(width: 10,),
                                 Expanded(
-                                  child: SizedBox(
-                                    width: 50,
-                                    child: Text(
-                                      'As datas em verde são as datas disponíveis para agendar uma consulta',
-                                      style: TextStyle(
-                                        color: Color.fromARGB(222, 255, 255, 255),
-                                        fontWeight: FontWeight.w600
+                                    child: SizedBox(
+                                      width: 50,
+                                      child: Text(
+                                        'Selecione as datas em seguida clique no botão "horario", para selecionar os horarios das consultas.',
+                                        style: TextStyle(
+                                          color: Color.fromARGB(222, 255, 255, 255),
+                                          fontWeight: FontWeight.w600
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 4,
                                       ),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
                                     ),
                                   ),
-                                ),
+                                
                               ],
                             ),
                             SizedBox(height: 20,),
 
-                            MyButton(label: 'continuar', borderRadius: BorderRadius.circular(50),  onPressed: (){insertSpecialistsDaysPageController.toNextScreen(context);},color: const Color.fromARGB(255, 255, 255, 255),fontColor:Color.fromARGB(255, 61, 102, 159)),
+                            MyButton(label: 'continuar', borderRadius: BorderRadius.circular(50),  onPressed: (){updateSpecialistHoraryPageController.toNextScreen(context);},color: const Color.fromARGB(255, 255, 255, 255),fontColor:Color.fromARGB(255, 61, 102, 159)),
+                            SizedBox(height: 20,),
                           ],
                         ),
                       ),

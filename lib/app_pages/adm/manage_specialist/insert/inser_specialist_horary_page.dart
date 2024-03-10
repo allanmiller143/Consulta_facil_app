@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
-import 'package:app_clinica/app_pages/adm/manage_specialist/widgets/horary_calendar.dart';
-import 'package:app_clinica/app_pages/adm/manage_specialist/widgets/hours_calendar.dart';
+import 'package:app_clinica/app_pages/adm/manage_specialist/widgets/insert/horary_calendar.dart';
+import 'package:app_clinica/app_pages/adm/manage_specialist/widgets/insert/hours_calendar.dart';
 import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
 import 'package:app_clinica/widgets/alert.dart';

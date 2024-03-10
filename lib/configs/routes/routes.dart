@@ -36,6 +36,8 @@ class MyApp extends StatelessWidget {
         //GetPage(name: '/', page: () => InsertUserDataPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
         //GetPage(name: '/', page: () => ProfilePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
         //GetPage(name: '/', page: () => HomePage()),
+        GetPage(name: '/', page: () => AdmHomePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
+
         GetPage(name: '/', page: () => LoginPage()),
         GetPage(name: '/signUp', page: () => SignUpPage()),
         //GetPage(name: '/', page: () => SelectDatePage()),
@@ -57,10 +59,10 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/insert_specialist', page: () => InsertSpecialistPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
         GetPage(name: '/list_specialist', page: () => ListSpecialistPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
         GetPage(name: '/update_specialist', page: () => UpdateSpecialistPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
-        GetPage(name: '/insert_horary_specialist', page: () => InsertSpecialistsDaysPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
+        GetPage(name: '/insert_horary_specialist', page: () => InsertSpecialistHoraryPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
         GetPage(name: '/select_specialist_update_type', page: () => SelectSpecialistUpdatePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
-        GetPage(name: '/insert_specialist_horary', page: () => InsertSpecialistHoraryPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
         GetPage(name: '/queries_adm', page: () => QueriesAdmPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
+        GetPage(name: '/update_specialist_horary', page: () => UpdateSpecialistHoraryPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
 
 
 

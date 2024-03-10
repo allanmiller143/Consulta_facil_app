@@ -86,28 +86,7 @@
                                       ),
                                     ],
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      MyHomeCardButton(
-                                        selected: admHomePageController.selected,
-                                        label: 'Especialidades',
-                                        onPressed: () {
-                                          // Removed the debugging statement
-                                        },
-                                        image: 'assets/imgs/notificacoes.png',
-                                      ),
-                                      MyHomeCardButton(
-                                        selected: admHomePageController.selected,
-                                        label: 'Configurações',
-                                        onPressed: () {
-                                          print(admHomePageController.myGlobalController.userInfo[0]);
-                                          Get.toNamed('/profile');
-                                        },
-                                        image: 'assets/imgs/perfil.png',
-                                      ),
-                                    ],
-                                  ),
+                                 
                                 ],
                               ),
                             ),

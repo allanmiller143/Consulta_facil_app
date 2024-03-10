@@ -12,7 +12,7 @@ class MyGlobalController extends GetxController {
   late String token;
 
 
-  Future<List<Map<String, dynamic>>> fetchDataFromApi(barra) async { // simula uma consulta na API
+  fetchDataFromApi(barra) async { // simula uma consulta na API
     try {
       // Simula um atraso de 2 segundos para a resposta da API
       await Future.delayed(const Duration(seconds: 1));

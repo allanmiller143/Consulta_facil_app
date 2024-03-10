@@ -111,8 +111,6 @@
     },
   ];
 
- 
-
   Map<String,dynamic> a = {
     'Specialist' : specialistData,
     'Specialty' : specialtyData,
@@ -120,60 +118,10 @@
     'Hours': availableHours,
     'User_info':  userInfo,
     'All_specialist': allSpecialist,
-    'Consultas': consultas
+    'Consultas': consultas,
+
+    'joao': medico_especifico
   };
-
-
-List<Map<String, dynamic>> allSpecialist = [
-  {
-    'Name': 'Dr. João Silva Alencar Soares',
-    'Specialty': 'Cardiologista',
-    'CRM' : '359558-PE',
-    'Phone': '819986258785',
-    'E-mail':'joao_silva@gmail.com',
-    'Search' : 'J'
-  },
-  {
-    'Name': 'Dra. Maria Oliveira Santos',
-    'Specialty': 'Dermatologista',
-    'CRM' : '452112-SP',
-    'Phone': '119827456321',
-    'E-mail':'maria_oliveira@gmail.com',
-    'Search' : 'M'
-  },
-  {
-    'Name': 'Dr. Carlos Roberto Mendes',
-    'Specialty': 'Ortopedista',
-    'CRM' : '275889-RJ',
-    'Phone': '219923214587',
-    'E-mail':'carlos_mendes@gmail.com',
-    'Search' : 'C'
-  },
-  {
-    'Name': 'Dra. Juliana Costa Lima',
-    'Specialty': 'Ginecologista',
-    'CRM' : '701234-MG',
-    'Phone': '31333234455',
-    'E-mail':'juliana_costa@gmail.com',
-    'Search' : 'J'
-  },
-  {
-    'Name': 'Dr. André Luiz Pereira',
-    'Specialty': 'Otorrinolaringologista',
-    'CRM' : '180987-BA',
-    'Phone': '71992887766',
-    'E-mail':'andre_pereira@gmail.com',
-    'Search' : 'A'
-  },
-  {
-    'Name': 'Dra. Fernanda Oliveira Costa',
-    'Specialty': 'Endocrinologista',
-    'CRM' : '509876-SP',
-    'Phone': '119726543210',
-    'E-mail':'fernanda_costa@gmail.com',
-    'Search' : 'F'
-  },
-];
 
 
 List<Map<String, dynamic>> consultas = [
@@ -224,3 +172,141 @@ List<Map<String, dynamic>> consultas = [
   },
 ];
 
+
+List<Map<String, dynamic>> allSpecialist = [
+  {
+    'Specialist': 'Dr. João Silva',
+    'Agenda': [
+      {
+        'Date': '2024-03-13T00:00:00.000Z',
+        'Horarios': [
+          '2024-03-13 08:00:00.000Z',
+          '2024-03-13 14:30:00.000Z',
+        ],
+      },
+     
+    ],
+    'Specialty': 'Cardiologista',
+    'Name': 'João Silva Carneiro Brito', 
+    'CRM': '359558-PE',
+    'E-mail':'joao_silva@gmail.com',
+    'Phone': '119876543210',
+    'Content': 'O Dr. João Silva é um médico cardiologista com vasta experiência em cuidados cardíacos. Ele se especializou no tratamento de doenças cardíacas, hipertensão e insuficiência cardíaca.',
+    'Search' : 'J',
+    'Id' : 'aksy76s5d2',
+    'Sex': 'Masculino',
+    'Token': 'cFGXEEfxSjyIUr5_ZHUG5Y:APA91bElMgtwFu4z9LqJYj6jSoPM4ZXf_k0zxIVa-02qRBDVVHXW3gX-ymkzVxLRVPeZj8ciXGSTSXKuBC-Vvx_OnphB3F-XYU4wXhwIJBXzKlEBZ7LknKszWFGvkd0LaXyn57X-3HlB'
+  },
+  {
+    'Specialist': 'Dra. Maria Oliveira',
+    'Agenda': [
+      {
+        'Date': '2024-03-14T00:00:00.000Z',
+        'Horarios': [
+          '2024-03-14 09:00:00.000Z',
+          '2024-03-14 15:45:00.000Z',
+        ],
+      },
+    ],
+    'Specialty': 'Ginecologista',
+    'Name': 'Maria Oliveira Santos',
+    'CRM': '456789-SP',
+    'E-mail':'maria_oliveira@gmail.com',
+    'Phone': '119765432109',
+    'Content': 'A Dra. Maria Oliveira é uma médica ginecologista especializada em saúde da mulher. Ela oferece cuidados abrangentes em ginecologia e obstetrícia.',
+    'Search' : 'M',
+    'Id' : 'vbnm45ytsa',
+    'Sex': 'Feminino',
+    'Token': 'cFGXEEfxSjyIUr5_ZHUG5Y:APA91bElMgtwFu4z9LqJYj6jSoPM4ZXf_k0zxIVa-02qRBDVVHXW3gX-ymkzVxLRVPeZj8ciXGSTSXKuBC-Vvx_OnphB3F-XYU4wXhwIJBXzKlEBZ7LknKszWFGvkd0LaXyn57X-3HlB'
+
+  },
+  {
+    'Specialist': 'Dr. Carlos Souza',
+    'Agenda': [
+      {
+        'Date': '2024-03-13T00:00:00.000Z',
+        'Horarios': [
+          '2024-03-13 08:00:00.000Z',
+          '2024-03-13 14:30:00.000Z',
+        ],
+      },
+       {
+        'Date': '2024-03-14T00:00:00.000Z',
+        'Horarios': [
+          '2024-03-13 08:00:00.000Z',
+          '2024-03-13 14:30:00.000Z',
+        ],
+      },
+       {
+        'Date': '2024-03-15T00:00:00.000Z',
+        'Horarios': [
+          '2024-03-13 08:00:00.000Z',
+          '2024-03-13 14:30:00.000Z',
+        ],
+      },
+       {
+        'Date': '2024-03-05T00:00:00.000Z',
+        'Horarios': [
+          '2024-03-13 08:00:00.000Z',
+          '2024-03-13 14:30:00.000Z',
+        ],
+      },
+    ],
+    'Specialty': 'Ortopedista',
+    'Name': 'Carlos Souza Lima',
+    'CRM': '987654-RJ',
+    'E-mail':'carlos_souza@gmail.com',
+    'Phone': '119876543210',
+    'Content': 'O Dr. Carlos Souza é um médico ortopedista especializado no tratamento de doenças e lesões do sistema musculoesquelético. Ele realiza procedimentos cirúrgicos e oferece opções de tratamento conservador.',
+    'Search' : 'C',
+    'Id' : 'qwe78kjih',
+    'Sex': 'Masculino',
+    'Token': 'cFGXEEfxSjyIUr5_ZHUG5Y:APA91bElMgtwFu4z9LqJYj6jSoPM4ZXf_k0zxIVa-02qRBDVVHXW3gX-ymkzVxLRVPeZj8ciXGSTSXKuBC-Vvx_OnphB3F-XYU4wXhwIJBXzKlEBZ7LknKszWFGvkd0LaXyn57X-3HlB'
+
+  },
+
+];
+
+
+Map<String,dynamic> medico_especifico =   {
+    'Specialist': 'Dr. João Silva',
+    'Agenda': [
+      {
+        'Date': '2024-03-13T00:00:00.000Z',
+        'Horarios': [
+          '2024-03-13 08:00:00.000Z',
+          '2024-03-13 14:30:00.000Z',
+        ],
+      },
+       {
+        'Date': '2024-03-14T00:00:00.000Z',
+        'Horarios': [
+          '2024-03-13 08:00:00.000Z',
+          '2024-03-13 14:30:00.000Z',
+        ],
+      },
+       {
+        'Date': '2024-03-15T00:00:00.000Z',
+        'Horarios': [
+          '2024-03-13 08:00:00.000Z',
+          '2024-03-13 14:30:00.000Z',
+        ],
+      },
+       {
+        'Date': '2024-03-05T00:00:00.000Z',
+        'Horarios': [
+          '2024-03-13 08:00:00.000Z',
+          '2024-03-13 14:30:00.000Z',
+        ],
+      },
+    ],
+    'Specialty': 'Cardiologista',
+    'Name': 'João Silva Carneiro Brito', 
+    'CRM': '359558-PE',
+    'E-mail':'joao_silva@gmail.com',
+    'Phone': '119876543210',
+    'Content': 'O Dr. João Silva é um médico cardiologista com vasta experiência em cuidados cardíacos. Ele se especializou no tratamento de doenças cardíacas, hipertensão e insuficiência cardíaca.',
+    'Search' : 'J',
+    'Id' : 'aksy76s5d2',
+    'Sex': 'Masculino',
+  };

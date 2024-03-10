@@ -42,37 +42,54 @@ Widget buildHoraryCalendar(InsertSpecialistHoraryPageController pageController,c
           ),
           isTodayHighlighted: false
         ),
-        onDayLongPressed: (selectedDay, focusedDay) {
-          String content = '';
-          bool manhaEncontrada = false;
-          bool tardeEncontrada = false;
+onDayLongPressed: (selectedDay, focusedDay) {
+  String content = '';
+  bool manhaEncontrada = false;
+  bool tardeEncontrada = false;
 
-          if (pageController.selectedDatesFinal.contains(selectedDay)) {
-            for (var json in pageController.jsons) {
-              if (json['date'] == selectedDay.toIso8601String()) {
-                for (var item in json['available_times']) {
-                  // Converta a string para DateTime antes de acessar as propriedades hour e minute
-                  DateTime dateTimeItem = DateTime.parse(item);
+  if (pageController.selectedDatesFinal.contains(selectedDay)) {
+    for (var json in pageController.jsons) {
+      if (json['date'] == selectedDay.toIso8601String()) {
+        for (var item in json['available_times']) {
+          // Converta a string para DateTime antes de acessar as propriedades hour e minute
+          DateTime dateTimeItem;
+          String hora = item[11] +item[12];
+          int horaConvertida = int.parse(hora);
 
-                  // Use padLeft para garantir dois dígitos nos minutos
-                  String minutes = dateTimeItem.minute.toString().padLeft(2, '0');
-                  
-                  if (dateTimeItem.hour < 12 && !manhaEncontrada) {
-                    content += 'Manhã:\n';
-                    manhaEncontrada = true;
-                  } else if (dateTimeItem.hour >= 12 && !tardeEncontrada) {
-                    content += 'Tarde:\n';
-                    tardeEncontrada = true;
-                  }
+          // projeto gambiarra agora
 
-                  content += '${dateTimeItem.hour}:$minutes\n';
-                }
-              }
-            }
+          print(item);
 
-            showConfirmationDialog(context, 'Horários do dia ${selectedDay.day}/${selectedDay.month}', content);
+          if(horaConvertida < 12){
+            dateTimeItem = DateTime.parse(item);
+
+          }else{
+            dateTimeItem = DateTime.parse(item);
           }
-        },
+
+          
+
+          // Use padLeft para garantir dois dígitos nos minutos
+          String minutes = dateTimeItem.minute.toString().padLeft(2, '0');
+
+          if (dateTimeItem.hour < 12 && !manhaEncontrada) {
+            content += 'Manhã:\n';
+            print('entrei aqui ');
+            manhaEncontrada = true;
+          } else if (dateTimeItem.hour >= 12 && !tardeEncontrada) {
+            content += 'Tarde:\n';
+            print('entrei tarde');
+            tardeEncontrada = true;
+          }
+
+          content += '${dateTimeItem.hour}:$minutes\n';
+        }
+      }
+    }
+
+    showConfirmationDialog(context, 'Horários do dia ${selectedDay.day}/${selectedDay.month}', content);
+  }
+},
 
 
         calendarBuilders: CalendarBuilders(
@@ -86,7 +103,7 @@ Widget buildHoraryCalendar(InsertSpecialistHoraryPageController pageController,c
               decoration: BoxDecoration(
                 color: isAvailable ? const Color.fromARGB(219, 76, 175, 79) : const Color.fromARGB(255, 255, 255, 255),
                 borderRadius: BorderRadius.circular(120),
-                border: (isSelectedFinal || isFocusedOrSelected) ? Border.all(color: Colors.red, width: 2) : null,
+                border: (isSelectedFinal || isFocusedOrSelected) ? Border.all(color: const Color.fromARGB(255, 29, 33, 110), width: 2) : null,
               ),
               child: Center(
                 child: Text(
