@@ -1,17 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
 
 import 'package:app_clinica/configs/controllers/globalController.dart';
-import 'package:app_clinica/configs/default_pages/load_widget.dart';
-import 'package:app_clinica/services/api.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/header.dart';
 import 'package:app_clinica/widgets/profile_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
-class ProfilePageController extends GetxController {
+class SpecialistProfilePageController extends GetxController {
   late MyGlobalController myGlobalController;
   late Map<String,dynamic> infoSelected;
 
@@ -26,12 +23,12 @@ class ProfilePageController extends GetxController {
     {
       'title': 'Dados Pessoais',
       'subtitle': 'Veja seus dados pessoais',
-      'campos' : ['Nome completo','CPF','Telefone','Email'],
+      'campos' : ['Nome completo','specialist','Phone','E-mail','Sex','Content',],
     },
     {
-      'title': 'Endereço',
-      'subtitle': 'Altere seu endereço',
-      'campos' : ['CEP','Estado','Cidade','Bairro','Rua','Numero'],
+      'title': 'Horários',
+      'subtitle': 'Veja seus horários',
+      'campos' : [],
     },
     {
       'title': 'Senha',
@@ -39,8 +36,8 @@ class ProfilePageController extends GetxController {
       'campos' : [],
     },
     {
-      'title': 'Apagar conta',
-      'subtitle': 'Apague sua conta',
+      'title': 'Configurações',
+      'subtitle': 'Abrir Página de Configurações',                                 
       'campos' : [],
     }
   ];
@@ -53,23 +50,14 @@ class ProfilePageController extends GetxController {
         MyProfileWidgetButton(
           info: info[i],
           onPressed: () {
-
             if(info[i]['title'] == 'Dados Pessoais'){
               infoSelected = info[i];
-              if(myGlobalController.userInfo['data'] == false){
-                info[i]['campos'] = ['email'];
-              }
-              Get.toNamed( '/edit');          
+              Get.toNamed('/specialist_read_profile');
+                  
             }
 
-            if(info[i]['title'] == 'Endereço'){
-              infoSelected = info[i];
-              if(myGlobalController.userInfo['data'] == false){
-                showConfirmationDialog(context, 'Alerta', 'você ainda não inseriu seus dados. de endereço e contato.',);
-              }
-              else{
-                Get.toNamed( '/edit');   
-              }
+            if(info[i]['title'] == 'Horários'){
+             
             }
             
 
@@ -77,21 +65,8 @@ class ProfilePageController extends GetxController {
               showConfirmationDialog(context, 'Em desenvolvimento', 'Essa funcionalidade ainda está sendo desenvolvida');
             }
 
-            if(info[i]['title'] == 'Apagar conta'){
-              showConfirmationDialogFunction2(context, 'Deletar Conta', 'Apagar sua conta, resulta em apagar todos os seus dados, todas as consultas e agendamentos pendentes.\ntem certeza que deseja apagar sua conta?\ncaso sim, clique em continuar',
-              ()async{
-                Get.back(); // fecha o dialog
-                showLoad(context);
-                await deleteApi('user/${myGlobalController.userInfo['email']}');
-                await FirebaseAuth.instance.currentUser?.delete();
-                Get.back();
-                myGlobalController.userInfo.clear();
-                Get.toNamed('/');
-
-
-
-              }
-            );
+            if(info[i]['title'] == 'Configurações'){
+              showConfirmationDialog(context, 'Em desenvolvimento', 'Essa funcionalidade ainda está sendo desenvolvida');
             }  
 
            
@@ -107,14 +82,14 @@ class ProfilePageController extends GetxController {
 
 
 
-class ProfilePage extends StatelessWidget {
-  ProfilePage({Key? key}) : super(key: key);
-  var profilePageController = Get.put(ProfilePageController());
+class SpecialistProfilePage extends StatelessWidget {
+  SpecialistProfilePage({Key? key}) : super(key: key);
+  var specialistProfilePageController = Get.put(SpecialistProfilePageController());
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: GetBuilder<ProfilePageController>(
-        init: ProfilePageController(),
+      home: GetBuilder<SpecialistProfilePageController>(
+        init: SpecialistProfilePageController(),
         builder: (_) {
           return Scaffold(
             body:Container(
@@ -136,7 +111,7 @@ class ProfilePage extends StatelessWidget {
                     MyHeader(),
                     Expanded(
                       child: ListView(
-                        children: profilePageController.buildWidgets(context),
+                        children: specialistProfilePageController.buildWidgets(context),
                       )
                     )
                            

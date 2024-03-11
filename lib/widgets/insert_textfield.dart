@@ -9,11 +9,6 @@ import 'package:get/get.dart';
 Widget buildTextField(String text, TextEditingController controller, BuildContext context, {String keyboard = 'text' ,int maxLength = 1, bool ativated = true,int type = 0}) {
   
 
-
- 
-  
-  
-  
   return Padding(
     padding: maxLength == 1 ? const EdgeInsets.fromLTRB(0, 0, 0, 16) : const EdgeInsets.fromLTRB(0, 0, 0, 0),
     child: Column(

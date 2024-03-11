@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, avoid_print
+import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/load_widget.dart';
+import 'package:app_clinica/services/api.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/textfield.dart';
@@ -8,8 +10,15 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPageController extends GetxController {
+  late MyGlobalController myGlobalController;
   var email = TextEditingController();
   var password = TextEditingController();
+
+  @override
+  void onInit() {
+    myGlobalController = Get.find();
+    super.onInit();
+  }
 
 
   login(context) async{
@@ -17,9 +26,29 @@ class LoginPageController extends GetxController {
       try{
         showLoad(context);
         await FirebaseAuth.instance.signInWithEmailAndPassword(email: email.text, password: password.text);
-        Get.back();
+        myGlobalController.userInfo = await searchApi('user/${email.text}');
 
-        Get.toNamed('/home');
+        if (myGlobalController.userInfo != null && myGlobalController.userInfo['birth_date'] != null) {
+          myGlobalController.userInfo['birth_date'] = DateTime.parse(myGlobalController.userInfo['birth_date']);
+        }
+        email.clear();
+        password.clear();
+
+        if(myGlobalController.userInfo['user_type'] == '1'){
+          Get.back();
+          Get.toNamed('/home');
+        }else if(myGlobalController.userInfo['user_type'] == '2'){
+          Get.back();
+          Get.toNamed('/specialist_home');
+
+        }
+        else{
+          Get.back();
+          Get.toNamed('/adm');
+
+        }
+
+        
       } on FirebaseException catch(e){
         Get.back();
         if(e.code == 'invalid-credential' || e.code == 'wrong-password'){

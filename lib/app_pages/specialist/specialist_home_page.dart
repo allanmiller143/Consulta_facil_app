@@ -1,13 +1,12 @@
   // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
   import 'package:app_clinica/configs/controllers/globalController.dart';
-import 'package:app_clinica/configs/default_pages/loading_page.dart';
-  import 'package:app_clinica/widgets/alert.dart';
+  import 'package:app_clinica/configs/default_pages/loading_page.dart';
   import 'package:app_clinica/widgets/header.dart';
   import 'package:app_clinica/widgets/home_card.dart';
   import 'package:flutter/material.dart';
   import 'package:get/get.dart';
 
-  class HomePageController extends GetxController {
+  class SpecialistHomePageController extends GetxController {
       late MyGlobalController myGlobalController;
 
       @override
@@ -17,22 +16,22 @@ import 'package:app_clinica/configs/default_pages/loading_page.dart';
       }
       
       init() async {
-        
+        myGlobalController.userInfo = await myGlobalController.fetchDataFromApi('User_info');
         return myGlobalController.userInfo;
       }
 
       RxString selected = ''.obs;
   }
 
-  class HomePage extends StatelessWidget {
-      HomePage({Key? key}) : super(key: key);
-      var homePageController = Get.put(HomePageController());
+  class SpecialistHomePage extends StatelessWidget {
+      SpecialistHomePage({Key? key}) : super(key: key);
+      var homePageController = Get.put(SpecialistHomePageController());
 
       @override
       Widget build(BuildContext context) {
         return MaterialApp(
-          home: GetBuilder<HomePageController>(
-            init: HomePageController(),
+          home: GetBuilder<SpecialistHomePageController>(
+            init: SpecialistHomePageController(),
             builder: (_) {
               return Scaffold(
                 body: FutureBuilder(
@@ -58,12 +57,24 @@ import 'package:app_clinica/configs/default_pages/loading_page.dart';
                               child: Column(
                                 children: [
                                   MyHeader(),
-                                  Text(
-                                    'Bem-vindo',
-                                    style: TextStyle(
-                                      fontSize: 26,
-                                      color: const Color.fromARGB(255, 255, 255, 255),
-                                    ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'Bem-vindo',
+                                        style: TextStyle(
+                                          fontSize: 26,
+                                          color: const Color.fromARGB(255, 255, 255, 255),
+                                        ),
+                                      ),
+                                      Text(
+                                        'Dr. João Silva',
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                          color: const Color.fromARGB(255, 255, 255, 255),
+                                          fontWeight: FontWeight.w300
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(height: 25),
                                   Row(
@@ -73,51 +84,17 @@ import 'package:app_clinica/configs/default_pages/loading_page.dart';
                                         selected: homePageController.selected,
                                         label: 'Minhas consultas',
                                         onPressed: () {
-                                          Get.toNamed('/queries');
+                                          Get.toNamed('/specialist_queries');
                                         },
                                         image: 'assets/imgs/minhasConsultas.png',
                                       ),
                                       MyHomeCardButton(
-                                        selected: homePageController.selected,
-                                        label: 'Agendar consulta',
-                                        onPressed: () {
-                                          if (homePageController.myGlobalController.userInfo['data'] == false) {
-                                            showConfirmationDialogFunction(
-                                              context,
-                                              'Cadastro necessário',
-                                              'Para agendar uma consulta é necessário preencher o cadastro, você só precisa desta vez!\n\nClique em continuar para preencher o cadastro',
-                                              () {
-                                                Get.back();
-                                                Get.toNamed('/insert_data');
-                                              },
-                                            );
-                                          } else {
-                                            Get.toNamed('/agendar');
-                                            MyGlobalQueryController myGlobalQueryController = Get.find();
-                                            myGlobalQueryController.queryState = 'inserir';
-                                          }
-                                        },
-                                        image: 'assets/imgs/agendar.png',
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      MyHomeCardButton(
-                                        selected: homePageController.selected,
-                                        label: 'Notificações',
-                                        onPressed: () {
-                                          // Removed the debugging statement
-                                        },
-                                        image: 'assets/imgs/notificacoes.png',
-                                      ),
-                                      MyHomeCardButton(
+
                                         selected: homePageController.selected,
                                         label: 'Perfil',
                                         onPressed: () {
-                                          print(homePageController.myGlobalController.userInfo[0]);
-                                          Get.toNamed('/profile');
+                                          Get.toNamed('/specialist_profile');
+
                                         },
                                         image: 'assets/imgs/perfil.png',
                                       ),

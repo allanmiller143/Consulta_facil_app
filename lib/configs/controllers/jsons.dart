@@ -119,7 +119,7 @@
     'User_info':  userInfo,
     'All_specialist': allSpecialist,
     'Consultas': consultas,
-
+    'Consultas2': consultas2,
     'joao': medico_especifico
   };
 
@@ -127,6 +127,7 @@
 List<Map<String, dynamic>> consultas = [
   {
     'Specialist': 'Dr. João Silva',
+    'CRM': '359558-PE',
     'Date': DateTime.utc(2024, 3, 14, 9, 0),
     'Specialty': 'Cardiologista',
     'Query_id': 'asde5tshdy',
@@ -136,9 +137,61 @@ List<Map<String, dynamic>> consultas = [
   },
   {
     'Specialist': 'Dra. Maria Oliveira',
+    'CRM': '456789-SP',
     'Date': DateTime.utc(2024, 3, 15, 10, 30),
     'Specialty': 'Dermatologista',
     'Query_id': 'qwe78ghytr',
+    'UserName': 'Carla Santos',
+    'Usercpf': '23456789012',
+    'Status': 'Concluída',
+  },
+  {
+    'Specialist': 'Dr. Ricardo Santos',
+    'Date': DateTime.utc(2024, 3, 16, 11, 15),
+    'Specialty': 'Ortopedista',
+    'Query_id': 'zxcvbnm123',
+    'UserName': 'Pedro Oliveira',
+    'Usercpf': '34567890123',
+    'Status': 'Aberta',
+  },
+  {
+    'Specialist': 'Dra. Ana Souza',
+    'Date': DateTime.utc(2024, 3, 17, 14, 45),
+    'Specialty': 'Ginecologista',
+    'Query_id': 'poiuytrewq',
+    'UserName': 'Fernanda Lima',
+    'Usercpf': '45678901234',
+    'Status': 'Concluída',
+  },
+  {
+    'Specialist': 'Dr. Marcos Pereira',
+    'Date': DateTime.utc(2024, 3, 18, 16, 0),
+    'Specialty': 'Pediatria',
+    'Query_id': 'lkjhgfdsa',
+    'UserName': 'Lucas Oliveira',
+    'Usercpf': '56789012345',
+    'Status': 'Aberta',
+  },
+];
+
+
+List<Map<String, dynamic>> consultas2 = [
+  {
+    'Specialist': 'Dr. João Silva',
+    'CRM': '359558-PE',
+    'Date': DateTime.utc(2024, 3, 14, 9, 0),
+    'Specialty': 'Cardiologista',
+    'Query_id': 'mudei',
+    'UserName': 'Allan Miller Silva Lima',
+    'Usercpf': '12678032400',
+    'Status': 'Concluída',
+  },
+  {
+    'Specialist': 'Dra. Maria Oliveira',
+    'CRM': '456789-SP',
+    'Date': DateTime.utc(2024, 3, 15, 10, 30),
+    'Specialty': 'Dermatologista',
+    'Query_id': 'mudei',
     'UserName': 'Carla Santos',
     'Usercpf': '23456789012',
     'Status': 'Concluída',
@@ -290,6 +343,7 @@ Map<String,dynamic> medico_especifico =   {
         'Horarios': [
           '2024-03-13 08:00:00.000Z',
           '2024-03-13 14:30:00.000Z',
+        '  2024-03-11T01:14:29.714623-03:00'
         ],
       },
        {

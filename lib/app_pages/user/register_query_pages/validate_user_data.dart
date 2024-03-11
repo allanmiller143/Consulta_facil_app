@@ -62,17 +62,17 @@ bool validateCPF(String cpf) {
   }
  
  void validarCampos(Map<String,dynamic> info,context) async{
-    if(info['Nome completo'].isEmpty || info['CEP'].isEmpty || info['Estado'].isEmpty || info['Cidade'].isEmpty || info['Bairro'].isEmpty || info['Rua'].isEmpty || info['Numero'].isEmpty|| info['Telefone'].isEmpty || info['cpf'].isEmpty){
+    if(info['name'].isEmpty || info['cep'].isEmpty || info['state'].isEmpty || info['city'].isEmpty || info['neighborhood'].isEmpty || info['address'].isEmpty || info['house_number'].isEmpty|| info['phone'].isEmpty || info['cpf'].isEmpty){
       showConfirmationDialog(context, 'Alerta', 'Por favor, preencha todos os campos para prosseguir!');
     }else{
       String mensagemRetorno = 'Campos ínvalidos:\n';
       if(!validateCPF(info['cpf'])){ // aqui verificar se o cpf existe
         mensagemRetorno = '${mensagemRetorno}cpf\n';
       }
-      if(!validarTelefone(info['Telefone'])){
+      if(!validarTelefone(info['phone'])){
         mensagemRetorno = '${mensagemRetorno}telefone\n';
       }
-      if(!validarCEP(info['CEP'])){
+      if(!validarCEP(info['cep'])){
         mensagemRetorno = '${mensagemRetorno}CEP\n';
       }
 
@@ -83,7 +83,7 @@ bool validateCPF(String cpf) {
 
         showConfirmationDialogFunction(context, 'Sucesso', 'Dados cadastrados com sucesso!\n\n Agora voce pode agendar uma consulta.' ,(){ Get.back();Get.back();});
         MyGlobalController myGlobalController = Get.find();
-        myGlobalController.userInfo[0].addAll(info);
+        myGlobalController.userInfo.addAll(info);
 
 
          

@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 class MyGlobalController extends GetxController {
   
-  late List<Map<String,dynamic>> userInfo;
+  late var userInfo;
   List<Map<String,dynamic>> userQueries = [];
   RxBool internet = true.obs;
   late String token;

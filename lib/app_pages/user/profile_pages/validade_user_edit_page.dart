@@ -1,4 +1,6 @@
 import 'package:app_clinica/configs/controllers/globalController.dart';
+import 'package:app_clinica/configs/default_pages/load_widget.dart';
+import 'package:app_clinica/services/api.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:get/get.dart';
 
@@ -54,23 +56,35 @@ bool validateCPF(String cpf) {
   }
 
  void validarCamposEdit(Map<String,dynamic> info,context) async{
-    if(info['Name'].isEmpty || info['Phone'].isEmpty || info['CPF'].isEmpty || info['E-mail'].isEmpty){
+    MyGlobalController myGlobalController = Get.find();
+    if(info['name'].isEmpty || info['phone'].isEmpty || info['cpf'].isEmpty || info['email'].isEmpty){
       showConfirmationDialog(context, 'Alerta', 'Por favor, preencha todos os campos para prosseguir!');
     }else{
       String returnMessege = 'Campos ínvalidos:\n';
-      if(!validateCPF(info['CPF'])){ // aqui verificar se o cpf existe
+      if(!validateCPF(info['cpf'])){ // aqui verificar se o cpf existe
         returnMessege = '${returnMessege}cpf\n';
       }
-      if(!validarTelefone(info['Phone'])){
+      if(!validarTelefone(info['phone'])){
         returnMessege = '${returnMessege}telefone\n';
       }
       // ainda precisa validar cpf no banco de dados
       if(returnMessege == 'Campos ínvalidos:\n'){
         
-       
+        myGlobalController.userInfo.addAll(info);
+
+        info['email'] = myGlobalController.userInfo['email'];
+        info['data'] = myGlobalController.userInfo['data'];
+        info['token'] = myGlobalController.userInfo['token'];
+        info['user_type'] = myGlobalController.userInfo['user_type'];
+        info['birth_date'] = info['birth_date']?.toIso8601String(); 
+
+        showLoad(context);
+        
+        await updateApi('user/${myGlobalController.userInfo['email']}', info);
+        Get.back();
         showConfirmationDialogFunction(context, 'Sucesso', 'Dados Aletrados com sucesso!' ,(){ Get.back();Get.back();});
-        MyGlobalController myGlobalController = Get.find();
-        myGlobalController.userInfo[0].addAll(info);
+        
+        
 
 
          
@@ -82,20 +96,30 @@ bool validateCPF(String cpf) {
   }
 
   void validateEditAddress(Map<String,dynamic> info,context) async{
-    if(info['CEP'].isEmpty || info['City'].isEmpty || info['Locale'].isEmpty || info['Street'].isEmpty || info['Number'].isEmpty){
+    MyGlobalController myGlobalController = Get.find();
+
+    showLoad(context);
+    if(info['cep'].isEmpty || info['city'].isEmpty || info['neighborhood'].isEmpty || info['adrress'].isEmpty || info['house_number'].isEmpty){
+      Get.back();
       showConfirmationDialog(context, 'Alerta', 'Por favor, preencha todos os campos para prosseguir!');
     }else{
         Map<String,dynamic> data = {
-          'CEP': info['CEP'],
-          'State': info['Estado'],
-          'City': info['Cidade'],
-          'Locale': info['Bairro'],
-          'Street' : info['Rua'],
-          'Number': info['Numero'],
+          'email': myGlobalController.userInfo['email'],
+          'data': myGlobalController.userInfo['data'],
+          'token': myGlobalController.userInfo['token'],
+          'user_type': myGlobalController.userInfo['user_type'],
+          'cep': info['cep'],
+          'state': info['state'],
+          'city': info['city'],
+          'neighborhood': info['neighborhood'],
+          'street' : info['address'],
+          'house_number': info['house_number'],
         };
+        await updateApi('user/${myGlobalController.userInfo['email']}', data);
+        myGlobalController.userInfo.addAll(data);
+        Get.back();
         showConfirmationDialogFunction(context, 'Sucesso', 'Dados Aletrados com sucesso!' ,(){ Get.back();Get.back();});
-        MyGlobalController myGlobalController = Get.find();
-        myGlobalController.userInfo[0].addAll(data);
+        
     }
 
   }

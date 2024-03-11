@@ -47,7 +47,12 @@ dependencies:
   flutter_pagination: ^0.0.8
   firebase_auth: ^4.17.8
   random_string: ^2.3.1
-  
+  calendar_slider: ^0.0.4
+  carousel_calendar: ^0.0.2
+  horizontal_week_calendar: ^0.0.7
+  flutter_neat_and_clean_calendar: ^0.3.16+36
+
+  date_utils: ^0.2.0
 
 dev_dependencies:
   flutter_test:

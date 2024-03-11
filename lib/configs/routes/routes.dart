@@ -7,6 +7,10 @@ import 'package:app_clinica/app_pages/adm/manage_specialist/update_remove/select
 import 'package:app_clinica/app_pages/adm/manage_specialist/update_remove/update_specialist_horary_page.dart';
 import 'package:app_clinica/app_pages/adm/manage_specialist/update_remove/update_specialist_page.dart';
 import 'package:app_clinica/app_pages/adm/my_queries_adm/my_queries_adm_page.dart';
+import 'package:app_clinica/app_pages/specialist/my_queries_specialist_pages/my_queries_specialist.dart';
+import 'package:app_clinica/app_pages/specialist/specialist_home_page.dart';
+import 'package:app_clinica/app_pages/specialist/specialist_profile_pages/Specialist_profile_page.dart';
+import 'package:app_clinica/app_pages/specialist/specialist_profile_pages/specialist_read_profile_page.dart';
 import 'package:app_clinica/app_pages/user/home_page.dart';
 import 'package:app_clinica/app_pages/user/my_queries_pages/my_edit_query_page.dart';
 import 'package:app_clinica/app_pages/user/my_queries_pages/my_queries.dart';
@@ -36,7 +40,11 @@ class MyApp extends StatelessWidget {
         //GetPage(name: '/', page: () => InsertUserDataPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
         //GetPage(name: '/', page: () => ProfilePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
         //GetPage(name: '/', page: () => HomePage()),
-        GetPage(name: '/', page: () => AdmHomePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
+        
+        //GetPage(name: '/', page: () => SpecialistHomePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
+
+        
+        //GetPage(name: '/', page: () => AdmHomePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
 
         GetPage(name: '/', page: () => LoginPage()),
         GetPage(name: '/signUp', page: () => SignUpPage()),
@@ -64,6 +72,12 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/queries_adm', page: () => QueriesAdmPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
         GetPage(name: '/update_specialist_horary', page: () => UpdateSpecialistHoraryPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
 
+       //rotas do medico
+
+        GetPage(name: '/specialist_home', page: () => SpecialistHomePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
+        GetPage(name: '/specialist_queries', page: () => SpecialistQueriesPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
+        GetPage(name: '/specialist_profile', page: () => SpecialistProfilePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
+        GetPage(name: '/specialist_read_profile', page: () => SpecialistReadProfilePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
 
 
 

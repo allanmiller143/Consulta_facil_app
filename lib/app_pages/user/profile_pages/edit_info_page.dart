@@ -25,21 +25,21 @@ class EditProfilePageController extends GetxController {
     profilePageController = Get.find();
     info = profilePageController.infoSelected;
 
-    if(myGlobalController.userInfo[0]['Data'] == true){
-      cpf.text = myGlobalController.userInfo[0]['CPF'];
-      cep.text = myGlobalController.userInfo[0]['CEP'];
-      nome.text = myGlobalController.userInfo[0]['Name'];
-      email.text = myGlobalController.userInfo[0]['E-mail'];
-      telefone.text = myGlobalController.userInfo[0]['Phone'];
-      rua.text = myGlobalController.userInfo[0]['Street'];
-      numero.text = myGlobalController.userInfo[0]['Number'];
-      estado.text = myGlobalController.userInfo[0]['State'];
-      bairro.text = myGlobalController.userInfo[0]['Locale'];
-      cidade.text = myGlobalController.userInfo[0]['City'];
-      selectedDate.value = myGlobalController.userInfo[0]['Birthdate'];
+    if(myGlobalController.userInfo['data'] == true){
+      cpf.text = myGlobalController.userInfo['cpf'];
+      cep.text = myGlobalController.userInfo['cep'];
+      nome.text = myGlobalController.userInfo['name'];
+      email.text = myGlobalController.userInfo['email'];
+      telefone.text = myGlobalController.userInfo['phone'];
+      rua.text = myGlobalController.userInfo['address'];
+      numero.text = myGlobalController.userInfo['house_number'];
+      estado.text = myGlobalController.userInfo['state'];
+      bairro.text = myGlobalController.userInfo['neighborhood'];
+      cidade.text = myGlobalController.userInfo['city'];
+      selectedDate.value = myGlobalController.userInfo['birth_date'];
     }
     else{
-      email.text = myGlobalController.userInfo[0]['E-mail'];
+      email.text = myGlobalController.userInfo['email'];
     }
     
     super.onInit();
@@ -123,23 +123,23 @@ class EditProfilePageController extends GetxController {
 
     if(info['title'] == 'Dados Pessoais' && info['campos'].length >2){
       data = {
-        'Name': nome.text,
-        'CPF': cpf.text,
-        'Phone': telefone.text,
-        'E-mail': email.text,
-        'Birthdate': selectedDate.value
+        'name': nome.text,
+        'cpf': cpf.text,
+        'phone': telefone.text,
+        'email': email.text,
+        'birth_date': selectedDate.value
       };
 
       validarCamposEdit(data, context);
     }
     if(info['title'] == 'Endereço'){
       data = {
-        'CEP': cep.text,
-        'State': estado.text,
-        'City': cidade.text,
-        'Locale': bairro.text,
-        'Street' : rua.text,
-        'Number': numero.text,
+        'cep': cep.text,
+        'state': estado.text,
+        'city': cidade.text,
+        'neighborhood': bairro.text,
+        'adrress' : rua.text,
+        'house_number': numero.text,
       };
       validateEditAddress(data, context);
     }

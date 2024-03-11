@@ -1,32 +1,39 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, avoid_print
+import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/load_widget.dart';
+import 'package:app_clinica/services/api.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:random_string/random_string.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUpPageController extends GetxController {
   var email = TextEditingController();
   var password = TextEditingController();
   var confirmPassword = TextEditingController();
+  late MyGlobalController myGlobalController;
 
   signUp(context) async {
+    myGlobalController = Get.find();
     if(password.text.isNotEmpty && password.text == confirmPassword.text){
       print('entrei aqui');
       try{
         showLoad(context);
-        String id = randomAlphaNumeric(10);
+      
         UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email.text, password: password.text);
   
         Map<String,dynamic> userInfoMap = {
-          'E-mail': email.text,
-          'Id': id,
-          'Type': 'Paciente',
-          
+          'email': email.text,
+          'data': false,
+          'user_type': '1',
+          'token': myGlobalController.token
         };
+
+        await insertApi('user',userInfoMap);
+        myGlobalController.userInfo = userInfoMap;
+
         Get.back();
         Get.toNamed('/home');
       }on FirebaseAuthException catch(e){

@@ -2,6 +2,8 @@
 // ignore_for_file: must_be_immutable
 import 'package:app_clinica/app_pages/user/register_query_pages/validate_user_data.dart';
 import 'package:app_clinica/configs/controllers/globalController.dart';
+import 'package:app_clinica/configs/default_pages/load_widget.dart';
+import 'package:app_clinica/services/api.dart';
 import 'package:app_clinica/services/complete_cep.dart';
 import 'package:app_clinica/widgets/Born_date.dart';
 import 'package:app_clinica/widgets/alert.dart';
@@ -80,7 +82,7 @@ class InsertUserDataPageController extends GetxController {
       ];
     } 
   void toNextScreen(BuildContext context) {}
-  }
+}
 
 
 class InsertUserDataPage extends StatelessWidget {
@@ -126,22 +128,32 @@ class InsertUserDataPage extends StatelessWidget {
                           MyButton(
                             label: 'continuar',
                             borderRadius: BorderRadius.circular(50),
-                            onPressed: (){
+                            onPressed: () async {
                     
                               var info = {
-                                'Nome completo': insertUserDataPageController.nome.text,
-                                'CEP': insertUserDataPageController.cep.text,
-                                'Estado': insertUserDataPageController.estado.text,
-                                'Cidade': insertUserDataPageController.cidade.text,
-                                'Bairro': insertUserDataPageController.bairro.text,
-                                'Rua' : insertUserDataPageController.rua.text,
-                                'Numero': insertUserDataPageController.numero.text,
-                                'Telefone': insertUserDataPageController.telefone.text,
+                                'name': insertUserDataPageController.nome.text,
+                                'email': insertUserDataPageController.myGlobalController.userInfo['email'],
+                                'data': true,
+                                'user_type': '1',
+                                'cep': insertUserDataPageController.cep.text,
+                                'state': insertUserDataPageController.estado.text,
+                                'city': insertUserDataPageController.cidade.text,
+                                'neighborhood': insertUserDataPageController.bairro.text,
+                                'address' : insertUserDataPageController.rua.text,
+                                'house_number': insertUserDataPageController.numero.text,
+                                'phone': insertUserDataPageController.telefone.text,
                                 'cpf': insertUserDataPageController.cpf.text,
-                                'Data de nascimento': insertUserDataPageController.selectedDate.value,
-                                'Data': true
+                                'birth_date': insertUserDataPageController.selectedDate.value,
+                                'token' : insertUserDataPageController.myGlobalController.token
+                                
                               };
                               validarCampos(info, context);
+
+                              info['birth_date'] =  insertUserDataPageController.selectedDate.value?.toIso8601String(); 
+                              showLoad(context);
+                              await updateApi('user/${insertUserDataPageController.myGlobalController.userInfo['email']}', info);
+                              Get.back();
+
                               },
 
                             color: const Color.fromARGB(255, 255, 255, 255),
