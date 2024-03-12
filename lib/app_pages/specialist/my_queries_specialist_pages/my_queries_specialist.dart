@@ -3,9 +3,7 @@ import 'package:app_clinica/app_pages/specialist/widgets/slide_calendar.dart';
 import 'package:app_clinica/app_pages/specialist/widgets/specialist_card.dart';
 import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
-import 'package:app_clinica/widgets/header.dart';
-import 'package:app_clinica/widgets/profile_widget.dart';
-import 'package:app_clinica/widgets/query_card.dart';
+import 'package:app_clinica/services/api.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -25,17 +23,29 @@ class SpecialistQueriesPageController extends GetxController {
   }
   
   List<Widget> buildCards(context, list) {
+    
     List<Widget> cards = [];
-      for(var item in list){
+
+    if(list != 404){
+     for(var item in list){
         cards.add(SpecialistCard(info: item));
       }
+    }else{
+      cards.add( Center(child: const Text('Nenhuma consulta marcada.',style: TextStyle(color: Colors.white,fontSize: 22),)));
+    }
+    
+
+ 
 
     return cards;
   }
   
   init() async{
     //String barra = '${selectedDay.value.toIso8601String()}-359558-PE';
-    queryResults = await myGlobalController.fetchDataFromApi('Consultas');
+    String data = selectedDay.value.toIso8601String().substring(0,10);
+    queryResults = await searchApi('appointment/doctor/${myGlobalController.userInfo['crm']}/${data}');
+    print('----------------------');
+    print(queryResults);
     return queryResults;
 
   }

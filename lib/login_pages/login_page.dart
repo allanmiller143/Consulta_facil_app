@@ -17,6 +17,8 @@ class LoginPageController extends GetxController {
   @override
   void onInit() {
     myGlobalController = Get.find();
+    //email.text = 'samuel.henrique@upe.br';
+    //password.text = 'consulta_123';
     super.onInit();
   }
 
@@ -29,10 +31,19 @@ class LoginPageController extends GetxController {
         myGlobalController.userInfo = await searchApi('user/${email.text}');
 
 
-        if(myGlobalController.userInfo == null){
-          Get.back();
-          showConfirmationDialog(context,  'Alerta', 'Email ou senha invalida');
-          return;
+        if(myGlobalController.userInfo == 500){
+          myGlobalController.userInfo = await searchApi('doctor/email/${email.text}');
+          print(myGlobalController.userInfo);
+          if(myGlobalController.userInfo == 500){
+            myGlobalController.userInfo = await searchApi('adm/${email.text}');
+            if(myGlobalController.userInfo == 500){
+            Get.back();
+            showConfirmationDialog(context,  'Alerta', 'Email ou senha invalida');
+            return;
+
+            }
+          }
+          
         }
 
         if (myGlobalController.userInfo != null && myGlobalController.userInfo['birth_date'] != null) {
@@ -47,11 +58,10 @@ class LoginPageController extends GetxController {
         }else if(myGlobalController.userInfo['user_type'] == '2'){
           Get.back();
           Get.toNamed('/specialist_home');
-
         }
         else{
           Get.back();
-          Get.toNamed('/adm');
+          Get.toNamed('/adm_home');
 
         }
 

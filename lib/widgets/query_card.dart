@@ -17,14 +17,15 @@ class MyQueryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime dateTime = DateTime.parse(info['date']);
 
-    String dateInfo = '${DateFormat.yMMMMd('pt_BR').format(info['Date'].toLocal())} ás ${DateFormat.Hm('pt_BR').format(info['Date'].toLocal())}';
+    String dateInfo = '${DateFormat.yMMMMd('pt_BR').format(dateTime)} ás ${DateFormat.Hm('pt_BR').format(dateTime.toLocal())}';
     return Column(
       children: [
         GestureDetector(
           onTap: onPressed,
           child: ListTile(
-            title: Text(info['Specialty'],style: const TextStyle(color:  Color.fromARGB(255, 255, 255, 255),fontSize: 20),),
+            title: Text(info['specialty'],style: const TextStyle(color:  Color.fromARGB(255, 255, 255, 255),fontSize: 20),),
             subtitle: Text(dateInfo,style: const TextStyle(color:  Color.fromARGB(255, 255, 255, 255),fontSize: 14,fontWeight: FontWeight.w200)),
             trailing: const Icon(Icons.arrow_forward_ios_rounded,color: Color.fromARGB(255, 255, 255, 255)),
             onTap: onPressed,

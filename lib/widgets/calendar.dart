@@ -50,6 +50,8 @@ Widget buildCalendar(SelectDayPageController selectDayPageController) => Obx(
           defaultBuilder: (context, day, focusedDay) {
             bool isAvailable = selectDayPageController.isDateAvailable(day) && day.isAfter(DateTime.now().subtract(const Duration(days: 1)));
             return Container(
+              width: 45,
+              height: 45,
               decoration: BoxDecoration(
                 color: isAvailable ? Colors.green : Colors.white, // Cor verde se disponível, senão branco
                 borderRadius: BorderRadius.circular(120),

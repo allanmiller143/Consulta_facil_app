@@ -13,11 +13,12 @@ class SpecialistCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-String horary = DateFormat('HH:mm').format(info['Date']);
+    DateTime dateTime = DateTime.parse(info['date']);
+    String horary = DateFormat('HH:mm').format(dateTime);
     return Container(
       margin: const EdgeInsets.fromLTRB(15, 0, 15, 15),
       width: MediaQuery.of(context).size.width * 0.9,
-      decoration: BoxDecoration(
+      decoration: BoxDecoration(  
         borderRadius: BorderRadius.circular(10),
         color: const Color.fromARGB(255, 25, 100, 157),
       ),
@@ -42,8 +43,8 @@ String horary = DateFormat('HH:mm').format(info['Date']);
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Paciente: ${info['UserName']}', style:const  TextStyle(fontSize: 12,fontWeight: FontWeight.w600, color: Color.fromARGB(255, 255, 255, 255)),),
-                    Text('Id da consulta: ${info['Query_id']}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w300, color: Color.fromARGB(255, 255, 255, 255)),),
+                    Text('Paciente: ${info['user_name']}', style:const  TextStyle(fontSize: 12,fontWeight: FontWeight.w600, color: Color.fromARGB(255, 255, 255, 255)),),
+                    Text('Id da consulta: ${info['id']}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w300, color: Color.fromARGB(255, 255, 255, 255)),),
                   ],
                 ),
               ],

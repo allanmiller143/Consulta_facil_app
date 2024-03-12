@@ -50,7 +50,8 @@ class InsertSpecialistHoraryPageController extends GetxController {
   void toNextScreen(context) async  {
     if(selectedDatesFinal.isNotEmpty){
       showLoad(context);
-      await insertApi('doctor/availability/asdfgh/all', jsons);
+      print(insertSpecialistPageController.crm.text);
+      await insertApi('doctor/availability/${insertSpecialistPageController.crm.text}/all', jsons);
       Get.back();
 
       

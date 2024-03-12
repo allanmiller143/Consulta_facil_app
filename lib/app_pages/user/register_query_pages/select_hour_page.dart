@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, unnecessary_overrides
 import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
+import 'package:app_clinica/configs/default_pages/try_again_page.dart';
+import 'package:app_clinica/services/api.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/header.dart';
@@ -14,7 +16,7 @@ class SelectHourPageController extends GetxController {
   Rx<DateTime> selectedHour = Get.arguments[0];
   late MyGlobalQueryController myGlobalQueryController;
   late MyGlobalController myGlobalController;
-  late List<Map<String, dynamic>> availableHours;
+  var availableHours;
 
   @override
   void onInit() async { 
@@ -73,10 +75,43 @@ class SelectHourPageController extends GetxController {
     return false;
   }
 
-  init() async {
-    availableHours = await myGlobalController.fetchDataFromApi('Hours');
-    return availableHours;
+
+
+ convertToAvailableHours(data) {
+   availableHours = [];
+
+  for (var item in data) {
+    DateTime dateTime = DateTime.parse(item['date']);
+    availableHours.add({'Hour': dateTime});
   }
+
+  return availableHours;
+}
+
+
+
+init() async {
+  DateTime dateFormat = myGlobalQueryController.date;
+
+  String formattedDate = "${dateFormat.year}-${dateFormat.month.toString().padLeft(2, '0')}-${dateFormat.day.toString().padLeft(2, '0')}";
+
+  print(formattedDate);
+
+  // Aguarde a conclusão da chamada searchApi
+  var apiResult = await searchApi('specialist/available/${myGlobalQueryController.crm}/$formattedDate');
+  
+  // Verifique se o resultado não é nulo e é uma lista
+  if (apiResult != null && apiResult is List) {
+    availableHours = convertToAvailableHours(apiResult);
+  } else {
+    // Lida com o caso de erro ou resultado inesperado
+    print('Erro ao obter dados da API.');
+  }
+  
+
+  return availableHours;
+}
+
 
 
   void toNextScreen(context) {
@@ -87,10 +122,10 @@ class SelectHourPageController extends GetxController {
         context,
         'Consulta agendada com sucesso',
         'textinho com os detalhes da consulta',
-        (){ 
-          
+        ()async { 
           myGlobalQueryController.date = selectedHour.value; 
-          myGlobalQueryController.addQuery();
+          myGlobalQueryController.addQuery(context);
+          
           Get.back();Get.back();Get.back();Get.back();Get.back();
           }
         );
@@ -179,7 +214,7 @@ class SelectHourPage extends StatelessWidget {
                     return Center(child: Text(snapshot.error.toString()));
                    }
                   } else if (snapshot.hasError) {
-                    return Text('Erro ao carregar a lista ${snapshot.error}');
+                    return TryAgainPage();
                   } else {
                   return LoadingWidget();
                   }

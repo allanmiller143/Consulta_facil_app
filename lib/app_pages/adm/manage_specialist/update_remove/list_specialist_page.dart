@@ -1,5 +1,6 @@
 import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
+import 'package:app_clinica/services/api.dart';
 import 'package:app_clinica/widgets/header.dart';
 import 'package:app_clinica/widgets/profile_widget.dart';
 import 'package:app_clinica/widgets/search_textfield.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ListSpecialistPageController extends GetxController {
-  List<Map<String, dynamic>> specialistResults = [];
+  var specialistResults;
   Map<String,dynamic> currentSpecialist = {};
   late MyGlobalController myGlobalController;
   var search = TextEditingController();
@@ -28,7 +29,7 @@ class ListSpecialistPageController extends GetxController {
       var capitalizedvalue = value[0].toUpperCase() + value.substring(1);
       searchBar.value = true;
       for(var x in specialistResults){
-        if(x['Search'].toString().startsWith(capitalizedvalue)){
+        if(x['search'].toString().startsWith(capitalizedvalue)){
           queryResult.add(x);
         }
       }
@@ -47,8 +48,8 @@ class ListSpecialistPageController extends GetxController {
       cards.add(
         MyProfileWidgetButton(
           info: {
-            'title': list[i]['Name'],
-            'subtitle': '${list[i]['Specialty']}, ${list[i]['CRM']}',
+            'title': list[i]['specialist'],
+            'subtitle': '${list[i]['specialty']}, ${list[i]['crm']}',
           },
           onPressed: (){
             currentSpecialist = list[i];
@@ -62,7 +63,7 @@ class ListSpecialistPageController extends GetxController {
   }
   
   init() async {
-    specialistResults = await myGlobalController.fetchDataFromApi('All_specialist');
+    specialistResults = await searchApi('doctor');
     return specialistResults;
   }
 

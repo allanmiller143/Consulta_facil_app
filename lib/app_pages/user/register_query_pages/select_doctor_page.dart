@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, avoid_function_literals_in_foreach_calls
+import 'package:app_clinica/app_pages/user/register_query_pages/select_specialty_page.dart';
 import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
+import 'package:app_clinica/configs/default_pages/try_again_page.dart';
+import 'package:app_clinica/services/api.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/header.dart';
@@ -13,37 +16,31 @@ import 'package:get/get.dart';
 class SelectDoctorPageController extends GetxController {
   var search = TextEditingController();
   RxString selected = ''.obs;
+  var selectDoctorInfo;
   RxBool searchBar = false.obs;
-  late List<Map<String, dynamic>> data;
+  var data;
   late MyGlobalController myGlobalController;
   var queryResult = [];
+  late SelectSpecialtyPageController selectSpecialtyPageController;
 
 
-  void addSearch() {
-    for (int i = 0; i < data.length; i++) {
-      String title = data[i]['title'];
-      String prefix = title.contains('Dra. ') ? 'Dra. ' : 'Dr. ';
-      int prefixIndex = prefix.length;
-      String firstLetter = title[prefixIndex];
-      Map<String, String> searchMap = {'Search': firstLetter};
-      data[i].addAll(searchMap);
-    }
-  }
-  
+
   List<Widget> buildWidgets(context,data) {
-    addSearch();
     List<Widget> rows = [];
       for (int i = 0; i < data.length; i += 2) {
         List<Widget> rowChildren = [];
         rowChildren.add(
           MySpecialtyCardButton(
             selected: selected,
-            label: data[i]['title'],
+            label: data[i]['specialist'],
             onPressed: () {
-              selected.value = data[i]['title'];
+              selected.value = data[i]['specialist'];
+              selectDoctorInfo = data[i];
             },
-            image: data[i]['imageAsset'],
-            info: data[i]['content'],
+            //image: data[i]['imageAsset'],
+            info: data[i]['description'],
+            image: 'assets/imgs/Cardiologista.png',
+
           ),
         );
 
@@ -52,12 +49,14 @@ class SelectDoctorPageController extends GetxController {
           rowChildren.add(
             MySpecialtyCardButton(
               selected: selected,
-              label: data[i + 1]['title'],
+              label: data[i + 1]['specialist'],
               onPressed: () {
-                selected.value = data[i + 1]['title'];
+                selected.value = data[i + 1]['specialist'];
+                selectDoctorInfo = data[i + 1];
               },
-              image: data[i + 1]['imageAsset'],
-              info: data[i + 1]['content'],
+              //image: data[i + 1]['imageAsset'],
+              image: 'assets/imgs/Cardiologista.png',
+              info: data[i + 1]['description'],
             
             ),
           );
@@ -80,6 +79,7 @@ class SelectDoctorPageController extends GetxController {
     else{
       MyGlobalQueryController myGlobalQueryController = Get.find();
       myGlobalQueryController.specialist = selected.value;
+      myGlobalQueryController.crm = selectDoctorInfo['crm'];
       Get.toNamed('/date');
     }
   }
@@ -89,7 +89,7 @@ class SelectDoctorPageController extends GetxController {
         var capitalizedvalue = value[0].toUpperCase() + value.substring(1);
         searchBar.value = true;
         for(var x in data){
-          if(x['Search'].toString().startsWith(capitalizedvalue)){
+          if(x['search'].toString().startsWith(capitalizedvalue)){
             queryResult.add(x);
           }
         }
@@ -102,12 +102,13 @@ class SelectDoctorPageController extends GetxController {
   }
 
   init() async {
-    data = await myGlobalController.fetchDataFromApi('Specialist');
+    data = await searchApi('specialist/${selectSpecialtyPageController.selected.value}');
     return data;
   }
 
   @override
   void onInit(){
+    selectSpecialtyPageController = Get.find();
       myGlobalController = Get.find();
       super.onInit();
     }
@@ -176,7 +177,7 @@ class SelectDoctorPage extends StatelessWidget {
                     return Center(child: Text(snapshot.error.toString()));
                    }
                   } else if (snapshot.hasError) {
-                    return Text('Erro ao carregar a lista ${snapshot.error}');
+                    return TryAgainPage();
                   } else {
                   return LoadingWidget();
                   }

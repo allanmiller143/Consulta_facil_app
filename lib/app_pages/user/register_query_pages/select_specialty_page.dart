@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
 import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
+import 'package:app_clinica/configs/default_pages/no_internet_page.dart';
+import 'package:app_clinica/configs/default_pages/try_again_page.dart';
+import 'package:app_clinica/services/api.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/header.dart';
@@ -14,7 +17,7 @@ class SelectSpecialtyPageController extends GetxController {
   late MyGlobalController myGlobalController;
   RxBool barraDePesquisa = false.obs;
   var queryResultado = [];
-  late List<Map<String, dynamic>> dados;
+  var dados;
   var search = TextEditingController();
   RxString selected = ''.obs;
 
@@ -25,12 +28,12 @@ class SelectSpecialtyPageController extends GetxController {
           rowChildren.add(
             MySpecialtyCardButton(
               selected: selected,
-              label: dados[i]['Specialty'],
+              label: dados[i]['specialty'],
               onPressed: () {
-                selected.value = dados[i]['Specialty'];
+                selected.value = dados[i]['specialty'];
               },
-              image: dados[i]['imageAsset'],
-              info: dados[i]['content'],
+              image: 'assets/imgs/Cardiologista.png',
+              info: 'teste',
             ),
           );
 
@@ -39,12 +42,14 @@ class SelectSpecialtyPageController extends GetxController {
             rowChildren.add(
               MySpecialtyCardButton(
                 selected: selected,
-                label: dados[i + 1]['Specialty'],
+                label: dados[i + 1]['specialty'],
                 onPressed: () {
-                  selected.value = dados[i + 1]['Specialty'];
+                  selected.value = dados[i + 1]['specialty'];
                 },
-                image: dados[i + 1]['imageAsset'],
-                info: dados[i + 1]['content'],
+                //image: dados[i + 1]['imageAsset'],
+                //info: dados[i + 1]['content'],
+                image: 'assets/imgs/Cardiologista.png',
+                info: 'teste',
               
               ),
             );
@@ -67,7 +72,7 @@ class SelectSpecialtyPageController extends GetxController {
     else{
       MyGlobalQueryController myGlobalQueryController = Get.find();
       myGlobalQueryController.specialty = selected.value;
-      Get.toNamed('/doctor',arguments: ['inserir']);
+      Get.toNamed('/doctor');
     }
   }
 
@@ -76,7 +81,7 @@ class SelectSpecialtyPageController extends GetxController {
       var capitalizedValor = valor[0].toUpperCase() + valor.substring(1);
       barraDePesquisa.value = true;
       for(var x in dados){
-        if(x['Specialty'].toString().startsWith(capitalizedValor)){
+        if(x['specialty'].toString().startsWith(capitalizedValor)){
           queryResultado.add(x);
         }
       }
@@ -94,11 +99,12 @@ class SelectSpecialtyPageController extends GetxController {
     myGlobalController = Get.find();
    
   }
-
-  init() async{
-    dados = await myGlobalController.fetchDataFromApi('Specialty');
-    return dados;
+  
+  init(context) async {
+      dados = await searchApi('specialties');
+      return dados;
   }
+
  
  }
 
@@ -115,7 +121,7 @@ class SelectSpecialtyPage extends StatelessWidget {
         builder: (_) {
           return Scaffold( 
             body: FutureBuilder(
-              future: selectSpecialtyPageController.init(),
+              future: selectSpecialtyPageController.init(context),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                    if (snapshot.hasData) {
@@ -156,21 +162,18 @@ class SelectSpecialtyPage extends StatelessWidget {
                                 )
                               ),
                               SizedBox(height: 30,),
-                              MyButton(label: 'continuar', borderRadius: BorderRadius.circular(50),  onPressed: (){selectSpecialtyPageController.toNextScreen(context);},color: const Color.fromARGB(255, 255, 255, 255),fontColor:Color.fromARGB(255, 61, 102, 159)),
+                              MyButton(label: 'Continuar', borderRadius: BorderRadius.circular(50),  onPressed: (){selectSpecialtyPageController.toNextScreen(context);},color: const Color.fromARGB(255, 255, 255, 255),fontColor:Color.fromARGB(255, 61, 102, 159)),
                               SizedBox(height: 30,),
                           ],
                         ),
                       ),
                     );
                    }else{
-                    return GestureDetector(
-                      onTap: (){
-                        print(selectSpecialtyPageController.dados);
-                      },
-                      child: Center(child: Text(snapshot.error.toString())));
+                 
+                    return TryAgainPage();          
                    }
                   } else if (snapshot.hasError) {
-                    return Text('Erro ao carregar a lista de pets: ${snapshot.error}');
+                    return Text('Erro ao carregar a lista${snapshot.error}');
                   } else {
                   return LoadingWidget();
                   }

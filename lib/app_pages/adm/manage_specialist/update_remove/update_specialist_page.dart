@@ -3,6 +3,7 @@ import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
+import 'package:app_clinica/widgets/dropDrown.dart';
 import 'package:app_clinica/widgets/header.dart';
 import 'package:app_clinica/widgets/insert_textfield.dart';
 
@@ -17,15 +18,28 @@ class UpdateSpecialistPageController extends GetxController {
   var crm = TextEditingController();
   var phone = TextEditingController();
   var email = TextEditingController();
+  var description = TextEditingController();
+  var selectedType = "Especialidade".obs;
+  var selectedTypeSex = "Sexo".obs;
+
+
 
   @override
   void onInit() {
+
+    
     myGlobalController = Get.find();
     listSpecialistPageController = Get.find();
-    name.text = listSpecialistPageController.currentSpecialist['Name'];
-    crm.text = listSpecialistPageController.currentSpecialist['CRM'];
-    phone.text = listSpecialistPageController.currentSpecialist['Phone'];
-    email.text = listSpecialistPageController.currentSpecialist['E-mail'];
+
+
+    print(listSpecialistPageController.currentSpecialist['gender']);
+    name.text = listSpecialistPageController.currentSpecialist['name'];
+    crm.text = listSpecialistPageController.currentSpecialist['crm'];
+    phone.text = listSpecialistPageController.currentSpecialist['phone'];
+    email.text = listSpecialistPageController.currentSpecialist['email'];
+    description.text = listSpecialistPageController.currentSpecialist['description'];
+    //selectedType.value = listSpecialistPageController.currentSpecialist['specialty'];
+    selectedTypeSex.value = listSpecialistPageController.currentSpecialist['gender'];
     super.onInit();
   }
   
@@ -35,6 +49,13 @@ class UpdateSpecialistPageController extends GetxController {
         cards.add( buildTextField('CRM', crm, context));
         cards.add( buildTextField('E-mail', email, context));
         cards.add( buildTextField('Telefone', phone, context,maxLength: 11));
+        cards.add( buildTextField('Descricão:  uma breve  descriçãodo medico/a', description, context,));
+        cards.add( CustomDropdownButton(items: const {'Especialidade':'Especialidade','Especialidade1':'Cardiologista','Especialidade2':'Dermatologista','Especialidade3':'Pediatra','Especialidade4':'Neurologista','Dentista':'Dentista'}, controller: selectedType,label: 'Especialidade do médico/a ',));
+        cards.add( Padding(
+          padding: const EdgeInsets.fromLTRB(0,10,0,0),
+          child: CustomDropdownButton(items: const {'Sexo':'Sexo','Sexo1':'Masculino','Sexo2':'Feminino','Masculino':'Masculino','Feminino':'Feminino'}, controller: selectedTypeSex,label: 'Sexo do médico/a ',),
+        ));
+    
     return cards;
   }
 

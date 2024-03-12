@@ -98,7 +98,7 @@ class EditProfilePageController extends GetxController {
         cards.add( buildTextField(info['campos'][0], nome, context,type: 1));
         cards.add( buildTextField(info['campos'][1], cpf, context,maxLength: 11,type: 1));
         cards.add( buildTextField(info['campos'][2], telefone, context,maxLength: 11,type: 1));
-        cards.add( buildTextField(info['campos'][3], email, context,type: 1));
+        cards.add( buildTextField(info['campos'][3], email, context,type: 1,ativated: false));
         cards.add( Obx(()=> buildDatePickerWidget(selectedDate, context,)));
       }
       else{

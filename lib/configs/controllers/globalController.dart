@@ -1,7 +1,10 @@
 // ignore_for_file: avoid_print, file_names
 
 import 'package:app_clinica/configs/controllers/jsons.dart';
+import 'package:app_clinica/configs/default_pages/load_widget.dart';
+import 'package:app_clinica/services/api.dart';
 import 'package:get/get.dart';
+
 //import 'package:random_string/random_string.dart';
 
 class MyGlobalController extends GetxController {
@@ -36,19 +39,20 @@ class MyGlobalController extends GetxController {
 
 
 class MyGlobalQueryController extends GetxController {
-  late String queryState;
+  
   late String currentQueryId;
+  
+  late String queryState;
   late String specialist;
   late DateTime date;
   late String specialty;
   late Map<String,dynamic> editedQuery; 
+  late String crm;
+
 
   void addEditedQuery (query){
     editedQuery = query;
   }
-
-
-  
 
 
   void resetVariables() {
@@ -56,19 +60,28 @@ class MyGlobalQueryController extends GetxController {
     currentQueryId = '';
     specialist = '';
     date = DateTime.utc(0, 0, 0);
+    crm = '';
     specialty = '';
   }
 
-  void addQuery() {
+  void addQuery(context) async {
     MyGlobalController myGlobalController = Get.find();
-    //String idQuery = randomAlphaNumeric(10);
+
     Map<String,dynamic> query = {
-      'Specialist': specialist,
-      'Date': date,
-      'Specialty': specialty,
-      'Query_id': 'asdf'
+      'user_email': myGlobalController.userInfo['email'],
+      'user_name' : myGlobalController.userInfo['name'],
+      'date': date.toIso8601String(),
+      'specialty': specialty,
+      'doctor_crm': crm,
+      'status': 'Aberta',
+      'specialist': specialist
 
     };
+    showLoad(context);
+    await insertApi('appointment', query);
+    await searchApi("specialist/unavailable/$crm/${date.toIso8601String()}");
+    
+    Get.back();
     myGlobalController.userQueries.add(query);
 
   }

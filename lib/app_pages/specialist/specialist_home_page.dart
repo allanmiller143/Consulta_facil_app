@@ -16,8 +16,8 @@
       }
       
       init() async {
-        myGlobalController.userInfo = await myGlobalController.fetchDataFromApi('User_info');
-        return myGlobalController.userInfo;
+       
+        return 'aysf';
       }
 
       RxString selected = ''.obs;
@@ -67,7 +67,7 @@
                                         ),
                                       ),
                                       Text(
-                                        'Dr. João Silva',
+                                        homePageController.myGlobalController.userInfo['specialist'],
                                         style: TextStyle(
                                           fontSize: 24,
                                           color: const Color.fromARGB(255, 255, 255, 255),

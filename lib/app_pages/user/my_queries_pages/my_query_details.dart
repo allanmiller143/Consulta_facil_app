@@ -1,6 +1,8 @@
 // ignore_for_file: unused_local_variable, avoid_print
 
 import 'package:app_clinica/configs/controllers/globalController.dart';
+import 'package:app_clinica/configs/default_pages/load_widget.dart';
+import 'package:app_clinica/services/api.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/header.dart';
@@ -19,7 +21,8 @@ class QueriesDetailsPageController extends GetxController {
   void onInit() {
     MyGlobalController myGlobalController = Get.find();
     info = Get.arguments[0];
-    dateInfo = '${info['Specialist']} , ${DateFormat.yMMMMd('pt_BR').format(info['Date'].toLocal())} ás ${DateFormat.Hm('pt_BR').format(info['Date'].toLocal())}';
+    DateTime dateTime = DateTime.parse(info['date']);
+    dateInfo = '${info['specialist']} , ${DateFormat.yMMMMd('pt_BR').format(dateTime)} ás ${DateFormat.Hm('pt_BR').format(dateTime.toLocal())}';
 
     super.onInit();
   }
@@ -78,7 +81,7 @@ class QueriesDetailsPage extends StatelessWidget {
                       ListView(
                         children:  [
                           ListTile(
-                            title: Text(queriesDetailsPageController.info['Specialty'],style: const TextStyle( fontFamily: 'Nunito-VariableFont_wght', color: Color.fromARGB(255, 255, 255, 255),fontSize: 20,fontWeight: FontWeight.w600 ),),
+                            title: Text(queriesDetailsPageController.info['specialty'],style: const TextStyle( fontFamily: 'Nunito-VariableFont_wght', color: Color.fromARGB(255, 255, 255, 255),fontSize: 20,fontWeight: FontWeight.w600 ),),
                             subtitle: Text(queriesDetailsPageController.dateInfo,style: const TextStyle( fontFamily: 'Nunito-VariableFont_wght', color: Color.fromARGB(255, 255, 255, 255),fontSize: 15,fontWeight: FontWeight.w600 ),),                    
                           ),
                           const SizedBox(height: 20),
@@ -93,8 +96,14 @@ class QueriesDetailsPage extends StatelessWidget {
                                     context, 
                                     'Deseja cancelar a consulta?',
                                     'Uma vez cancelada, a consulta não pode ser alterada, você terá que agendar uma nova consulta, se for o caso', 
-                                    (){
-                                       print('Lógiga de cancelar a consulta');
+                                    () async {
+                                      showLoad(context);
+                                      await deleteApi('appointment/${queriesDetailsPageController.info['id']}');
+                                      await searchApi("specialist/make_available/${queriesDetailsPageController.info['doctor_crm']}/${queriesDetailsPageController.info['date']}");
+                                      Get.back();Get.back();Get.back();
+                                      
+
+                                      print(queriesDetailsPageController.info['id']);
                                     }
                                   );
                                  },

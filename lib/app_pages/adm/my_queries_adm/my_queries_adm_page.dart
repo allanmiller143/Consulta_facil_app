@@ -137,7 +137,7 @@ class QueriesAdmPage extends StatelessWidget {
                                     showModalBottomSheet(
                                       context: context,
                                       isScrollControlled: true,
-                                      backgroundColor:Color.fromARGB(255, 26, 60, 123),
+                                      backgroundColor:const Color.fromARGB(255, 26, 60, 123),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
                                       ),

@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 
 
-String URL = 'https://137c-2804-29b8-515c-19b-87b-5139-5c72-de13.ngrok-free.app/';
+String URL = 'http://10.1.3.66:8000/';
 
 searchApi(String route) async {
   final url = Uri.parse('$URL$route');
@@ -17,7 +17,7 @@ searchApi(String route) async {
       return json.decode(response.body);
     } else {
       print('Erro na requisição: ${response.statusCode}');
-      return null;
+      return response.statusCode;
     }
   } catch (error) {
     print('Erro na requisição: $error');
@@ -27,7 +27,7 @@ searchApi(String route) async {
 
 
 
-insertApi(String route, var  data) async {
+insertApi(String route, var data) async {
   final url = Uri.parse('$URL$route');
   try {
     http.Response response = await http.post(

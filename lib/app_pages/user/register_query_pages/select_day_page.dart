@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
+import 'package:app_clinica/app_pages/user/register_query_pages/select_doctor_page.dart';
 import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
+import 'package:app_clinica/services/api.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/calendar.dart';
@@ -12,9 +14,10 @@ import 'package:intl/date_symbol_data_local.dart';
 
 class SelectDayPageController extends GetxController {
   late MyGlobalController myGlobalController;
+  late SelectDoctorPageController selectDoctorPageController;
   Rx<DateTime> selectedDay = DateTime.now().obs;
   Rx<DateTime> focusedDay = DateTime.now().obs;
-  late List<Map<String, dynamic>> availableDates;
+  var availableDates;
   
   void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (isDateAvailable(selectedDay) && selectedDay.isAfter(DateTime.now().subtract(Duration(days: 1)))) {
@@ -27,6 +30,7 @@ class SelectDayPageController extends GetxController {
   @override
   onInit() async {
     myGlobalController = Get.find();
+    selectDoctorPageController = Get.find();
     await initializeDateFormatting('pt_BR', null);
     
     super.onInit();
@@ -54,8 +58,27 @@ class SelectDayPageController extends GetxController {
     
   }
 
+
+ convertStringListToDateList( stringDates) {
+  List<Map<String, dynamic>> dateList = [];
+
+  for (String dateString in stringDates) {
+    DateTime date = DateTime.parse(dateString);
+    dateList.add({'Date': date});
+  }
+
+  return dateList;
+}
+
+
+
+
   init() async {
-    availableDates = await myGlobalController.fetchDataFromApi('Dates');
+ 
+    availableDates = await searchApi('specialist/available/${selectDoctorPageController.selectDoctorInfo['crm']}');
+
+    availableDates = convertStringListToDateList(availableDates);
+
     return availableDates;
   }
 

@@ -43,9 +43,11 @@ class MyApp extends StatelessWidget {
         
         //GetPage(name: '/', page: () => SpecialistHomePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
 
-        GetPage(name: '/', page: () => AdmHomePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
-
         //GetPage(name: '/', page: () => AdmHomePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
+
+        // GetPage(name: '/', page: () => AdmHomePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
+
+        //GetPage(name: '/', page: () => SpecialistHomePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
 
         GetPage(name: '/', page: () => LoginPage()),
         GetPage(name: '/signUp', page: () => SignUpPage()),
@@ -79,11 +81,6 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/specialist_queries', page: () => SpecialistQueriesPage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
         GetPage(name: '/specialist_profile', page: () => SpecialistProfilePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
         GetPage(name: '/specialist_read_profile', page: () => SpecialistReadProfilePage(),transition: Transition.rightToLeft,transitionDuration: const Duration(milliseconds: 400)),
-
-
-
-
-
 
       ],
     );

@@ -1,5 +1,6 @@
 import 'package:app_clinica/app_pages/specialist/my_queries_specialist_pages/my_queries_specialist.dart';
 import 'package:app_clinica/configs/default_pages/load_widget.dart';
+import 'package:app_clinica/services/api.dart';
 import 'package:app_clinica/widgets/header.dart';
 import 'package:calendar_slider/calendar_slider.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,6 @@ class CustomCalendarSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     double containerWidth = MediaQuery.of(context).size.width/3;
     double containerHeight = MediaQuery.of(context).size.height * 0.06;
-    int conter = 2;
     return Stack(
       children: [
         SizedBox(
@@ -47,11 +47,12 @@ class CustomCalendarSlider extends StatelessWidget {
               containerText.value = DateFormat('MMMM yyyy', 'pt_BR').format(date);
               
               showLoad(context);
-              conter%2 == 0 ?
-              specialistQueriesPageController.queryResults = await specialistQueriesPageController.myGlobalController.fetchDataFromApi('Consultas2'):
-              specialistQueriesPageController.queryResults = await specialistQueriesPageController.myGlobalController.fetchDataFromApi('Consultas');
+              String data =  date.toIso8601String().substring(0,10);
+               
+              specialistQueriesPageController.queryResults = await searchApi('appointment/doctor/${specialistQueriesPageController.myGlobalController.userInfo['crm']}/${data}');
+  
               selectedDate.value = date;
-              conter++;
+            
 
               Get.back();            
             },
