@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
 import 'package:app_clinica/configs/controllers/globalController.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
-import 'package:app_clinica/configs/default_pages/no_internet_page.dart';
 import 'package:app_clinica/configs/default_pages/try_again_page.dart';
 import 'package:app_clinica/services/api.dart';
 import 'package:app_clinica/widgets/alert.dart';

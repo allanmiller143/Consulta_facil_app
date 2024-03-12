@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
 import 'package:app_clinica/configs/controllers/globalController.dart';
-import 'package:app_clinica/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

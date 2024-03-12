@@ -1,4 +1,3 @@
-import 'package:app_clinica/app_pages/adm/manage_specialist/insert/inser_specialist_horary_page.dart';
 import 'package:app_clinica/app_pages/adm/manage_specialist/update_remove/update_specialist_horary_page.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/dropDrown.dart';
