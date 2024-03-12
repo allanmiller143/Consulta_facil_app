@@ -361,6 +361,5 @@ Map<String,dynamic> medico_especifico =   {
     'Phone': '119876543210',
     'Content': 'O Dr. João Silva é um médico cardiologista com vasta experiência em cuidados cardíacos. Ele se especializou no tratamento de doenças cardíacas, hipertensão e insuficiência cardíaca.',
     'Search' : 'J',
-    'Id' : 'aksy76s5d2',
     'Sex': 'Masculino',
   };

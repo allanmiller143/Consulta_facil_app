@@ -52,8 +52,6 @@ dependencies:
   horizontal_week_calendar: ^0.0.7
   flutter_neat_and_clean_calendar: ^0.3.16+36
 
-  date_utils: ^0.2.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

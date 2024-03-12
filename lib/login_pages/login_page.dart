@@ -28,6 +28,13 @@ class LoginPageController extends GetxController {
         await FirebaseAuth.instance.signInWithEmailAndPassword(email: email.text, password: password.text);
         myGlobalController.userInfo = await searchApi('user/${email.text}');
 
+
+        if(myGlobalController.userInfo == null){
+          Get.back();
+          showConfirmationDialog(context,  'Alerta', 'Email ou senha invalida');
+          return;
+        }
+
         if (myGlobalController.userInfo != null && myGlobalController.userInfo['birth_date'] != null) {
           myGlobalController.userInfo['birth_date'] = DateTime.parse(myGlobalController.userInfo['birth_date']);
         }

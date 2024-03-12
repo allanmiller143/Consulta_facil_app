@@ -1,4 +1,6 @@
+import 'package:app_clinica/configs/default_pages/load_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 
 Future<void> deleteFirebaseUser(String email) async {
   try {
@@ -16,3 +18,22 @@ Future<void> deleteFirebaseUser(String email) async {
     print('Erro ao excluir o usuário do Firebase Authentication: $error');
   }
 }
+
+
+
+Future<bool> registerUserWithEmailAndPassword(String email,context) async {
+  try {
+    showLoad(context);
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: email,
+      password: 'consulta_123',
+    );
+    Get.back();
+    return true;
+  } catch (error) {
+    Get.back();
+    return false;
+  }
+  
+}
+

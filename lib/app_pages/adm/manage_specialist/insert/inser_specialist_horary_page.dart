@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
+import 'package:app_clinica/app_pages/adm/manage_specialist/insert/insert_specialist_page.dart';
 import 'package:app_clinica/app_pages/adm/manage_specialist/widgets/insert/horary_calendar.dart';
 import 'package:app_clinica/app_pages/adm/manage_specialist/widgets/insert/hours_calendar.dart';
 import 'package:app_clinica/configs/controllers/globalController.dart';
+import 'package:app_clinica/configs/default_pages/load_widget.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
+import 'package:app_clinica/services/api.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/header.dart';
@@ -18,6 +21,7 @@ class InsertSpecialistHoraryPageController extends GetxController {
   RxList<DateTime> selectedDates = <DateTime>[].obs; // salva as datas atuais
   late List<Map<String, dynamic>> availableDates;
   RxList<DateTime> selectedDatesFinal = <DateTime>[].obs; // salva todas as datas ja cadastradas
+  late InsertSpecialistPageController insertSpecialistPageController;
   var jsons = [];
 
   void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -38,12 +42,18 @@ class InsertSpecialistHoraryPageController extends GetxController {
   @override
   onInit() async {
     myGlobalController = Get.find();
+    insertSpecialistPageController = Get.find();
     await initializeDateFormatting('pt_BR', null);
     
     super.onInit();
   }
-  void toNextScreen(context) {
+  void toNextScreen(context) async  {
     if(selectedDatesFinal.isNotEmpty){
+      showLoad(context);
+      await insertApi('doctor/availability/asdfgh/all', jsons);
+      Get.back();
+
+      
       showConfirmationDialog(context, 'Sucesso', 'Datas cadastradas com sucesso!');
       Get.back();
       Get.back();
@@ -136,7 +146,16 @@ class InsertSpecialistHoraryPage extends StatelessWidget {
                             ),
                             SizedBox(height: 20,),
 
-                            MyButton(label: 'continuar', borderRadius: BorderRadius.circular(50),  onPressed: (){insertSpecialistHoraryPageController.toNextScreen(context);},color: const Color.fromARGB(255, 255, 255, 255),fontColor:Color.fromARGB(255, 61, 102, 159)),
+                            MyButton(label: 'continuar', borderRadius: BorderRadius.circular(50), 
+                              onPressed: ()  {
+                                
+                           
+
+                                insertSpecialistHoraryPageController.toNextScreen(context);
+                              },
+                              color: const Color.fromARGB(255, 255, 255, 255),
+                              fontColor:Color.fromARGB(255, 61, 102, 159),
+                            ),
                             SizedBox(height: 20,),
                           ],
                         ),

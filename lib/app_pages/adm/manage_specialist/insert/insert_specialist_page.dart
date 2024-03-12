@@ -1,5 +1,8 @@
 import 'package:app_clinica/configs/controllers/globalController.dart';
+import 'package:app_clinica/configs/default_pages/load_widget.dart';
 import 'package:app_clinica/configs/default_pages/loading_page.dart';
+import 'package:app_clinica/services/api.dart';
+import 'package:app_clinica/services/firebase_functions.dart';
 import 'package:app_clinica/widgets/alert.dart';
 import 'package:app_clinica/widgets/button.dart';
 import 'package:app_clinica/widgets/dropDrown.dart';
@@ -15,7 +18,7 @@ class InsertSpecialistPageController extends GetxController {
   var crm = TextEditingController();
   var phone = TextEditingController();
   var email = TextEditingController();
-   var description = TextEditingController();
+  var description = TextEditingController();
   var selectedType = "Especialidade".obs;
   var selectedTypeSex = "Sexo".obs;
 
@@ -34,7 +37,6 @@ class InsertSpecialistPageController extends GetxController {
         cards.add( buildTextField('E-mail', email, context));
         cards.add( buildTextField('Telefone', phone, context,maxLength: 11));
         cards.add( buildTextField('Descricão:  uma breve  descriçãodo medico/a', description, context,));
-
         cards.add( CustomDropdownButton(items: const {'Especialidade':'Especialidade','Especialidade1':'Cardiologista','Especialidade2':'Dermatologista','Especialidade3':'Pediatra','Especialidade4':'Neurologista'}, controller: selectedType,label: 'Especialidade do médico/a ',));
         cards.add( Padding(
           padding: const EdgeInsets.fromLTRB(0,10,0,0),
@@ -44,16 +46,50 @@ class InsertSpecialistPageController extends GetxController {
     return cards;
   }
 
-  void toNextScreen(context) {
-    //if(name.text.isEmpty || crm.text.isEmpty || phone.text.isEmpty || description.text.isEmpty ||email.text.isEmpty || selectedType.value == 'Especialidade' ||  selectedTypeSex.value == 'Sexo'){
-      //showConfirmationDialog(context, 'Alerta', 'Por favor, confira se todos os campos foram preenchidos corretamente.');
-   // }
-    //else{
-      Get.toNamed('/insert_horary_specialist');
-     
-   // }
-    
+void toNextScreen(context) async {
+  String specialistName;
+
+  if (selectedTypeSex.value == 'Masculino') {
+    specialistName = 'Dr. ';
+  } else {
+    specialistName = 'Dra. ';
   }
+
+  String fullName = name.text;
+  List<String> nameParts = fullName.split(' ');
+
+  specialistName += (nameParts.length >= 2)
+      ? '${nameParts.first} ${nameParts.last}'
+      : fullName;
+
+  var specialistInfo = {
+    'specialist': specialistName,
+    'name': name.text,
+    'crm': crm.text,
+    'phone': phone.text,
+    'email': email.text,
+    'description': description.text,
+    'user_type': '2',
+    'gender': selectedTypeSex.value[0], // Ajuste para acessar o valor atual da observável
+    'specialty': selectedType.value, // Ajuste para acessar o valor atual da observável
+    'search': name.text[0].toUpperCase(),
+  };
+  
+  if(await registerUserWithEmailAndPassword(email.text,context)){
+    print(specialistInfo);
+    showLoad(context);
+    await insertApi('doctor', specialistInfo);
+    Get.back();
+    Get.toNamed('/insert_horary_specialist');
+  }
+  else{
+    Get.back();
+    showConfirmationDialog(context, 'Alerta', 'Ocorreu um erro ao cadastrar o usuario!\nTente novamente mais tarde!');
+  }
+
+
+  
+}
   
   init() async {
     queryResults = [{},{}];

@@ -49,7 +49,7 @@ class CustomDropdownButton extends StatelessWidget {
               ),
               items: items.entries.map((MapEntry<String, dynamic> entry) {
                 return DropdownMenuItem<String>(
-                  value: entry.key,
+                  value: entry.value,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                     child: Text(

@@ -27,7 +27,7 @@ searchApi(String route) async {
 
 
 
-insertApi(String route, Map<String, dynamic> data) async {
+insertApi(String route, var  data) async {
   final url = Uri.parse('$URL$route');
   try {
     http.Response response = await http.post(
@@ -40,7 +40,7 @@ insertApi(String route, Map<String, dynamic> data) async {
       print(json.decode(response.body));
       return json.decode(response.body);
     } else {
-      print('inserção com sucesso: ${response.statusCode}');
+      print('erro: ${response.statusCode}');
       return null;
     }
   } catch (error) {
